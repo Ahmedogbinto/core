@@ -11,6 +11,7 @@ package com.mycompany.tennis.core;
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,15 +19,15 @@ import java.sql.Statement;
 public class TestDeConnection {
     public static void main(String... args){
         Connection conn = null;
-        try {
-            //Seulement avant Java 7/JDBC 4 
-            //Class.forName(DRIVER_CLASS_NAME);
-            
+        try {   
             //MySQL driver MySQL Connector
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tennis?useSSL=false","COURSDB","COURSDB");
            
-            Statement statement = conn.createStatement();
-            ResultSet rs=statement.executeQuery("SELECT NOM,PRENOM, ID FROM JOUEUR WHERE ID=128");
+             PreparedStatement preparedStatement=conn.prepareStatement("SELECT NOM,PRENOM, ID FROM JOUEUR WHERE ID=?");
+             long identifiant=43L;
+             preparedStatement.setLong(1, identifiant);
+           
+            ResultSet rs=preparedStatement.executeQuery();
             if(rs.next()){
                 final String nom=rs.getString("NOM");
                 final String prenom=rs.getString("PRENOM");
