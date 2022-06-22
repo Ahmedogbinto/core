@@ -9,6 +9,7 @@ package com.mycompany.tennis.core;
  *
  * @author User
  */
+import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,9 +20,15 @@ import java.sql.Statement;
 public class TestDeConnection {
     public static void main(String... args){
         Connection conn = null;
-        try {   
+        try {  
+            MysqlDataSource dataSource=new MysqlDataSource();
+            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
+            dataSource.setUser("COURSDB");
+            dataSource.setPassword("COURSDB");
+            conn=dataSource.getConnection();
+            
             //MySQL driver MySQL Connector
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tennis?useSSL=false","COURSDB","COURSDB");
+            //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tennis?useSSL=false","COURSDB","COURSDB");
             conn.setAutoCommit(false);
             
              PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)");
