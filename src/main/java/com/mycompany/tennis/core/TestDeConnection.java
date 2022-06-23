@@ -4,27 +4,27 @@
  * and open the template in the editor.
  */
 package com.mycompany.tennis.core;
-
 /**
  *
  * @author User
  */
-import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 public class TestDeConnection {
     public static void main(String... args){
         Connection conn = null;
         try {  
-            MysqlDataSource dataSource=new MysqlDataSource();
+            BasicDataSource dataSource=new BasicDataSource();
+            
+            dataSource.setInitialSize(5);
+            
             dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUser("COURSDB");
+            dataSource.setUsername("COURSDB");
             dataSource.setPassword("COURSDB");
+            
             conn=dataSource.getConnection();
             
             //MySQL driver MySQL Connector
@@ -32,11 +32,11 @@ public class TestDeConnection {
             conn.setAutoCommit(false);
             
              PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)");
-            
+             
              String nom="Capriati";
              String prenom="Jennifer";
              String sexe="F";
-             
+                         
              preparedStatement.setString(1,nom);
              preparedStatement.setString(2,prenom);
              preparedStatement.setString(3,sexe);
