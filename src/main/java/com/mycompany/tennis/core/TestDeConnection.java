@@ -4,74 +4,52 @@
  * and open the template in the editor.
  */
 package com.mycompany.tennis.core;
+
+import com.mycompany.tennis.core.entity.Joueur;
+import com.mycompany.tennis.core.repository.JoueurRepositoryImpl;
+import java.util.List;
+
 /**
  *
  * @author User
  */
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import org.apache.commons.dbcp2.BasicDataSource;
 
 public class TestDeConnection {
     public static void main(String... args){
-        Connection conn = null;
-        try {  
-            BasicDataSource dataSource=new BasicDataSource();
-            
-            dataSource.setInitialSize(5);
-            
-            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUsername("COURSDB");
-            dataSource.setPassword("COURSDB");
-            
-            conn=dataSource.getConnection();
-            
-            //MySQL driver MySQL Connector
-            //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tennis?useSSL=false","COURSDB","COURSDB");
-            conn.setAutoCommit(false);
-            
-             PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)");
-             
-             String nom="Capriati";
-             String prenom="Jennifer";
-             String sexe="F";
-                         
-             preparedStatement.setString(1,nom);
-             preparedStatement.setString(2,prenom);
-             preparedStatement.setString(3,sexe);
-             
-             preparedStatement.executeUpdate();
-             
-             nom="Johannson";
-             prenom="Thomas";
-             sexe="H";
-             
-             preparedStatement.setString(1,nom);
-             preparedStatement.setString(2,prenom);
-             preparedStatement.setString(3,sexe);
-             
-             preparedStatement.executeUpdate();
-             conn.commit();
-             System.out.println("success");
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try{
-               if(conn!=null) conn.rollback();
-            }
-            catch(SQLException e1){
-                e1.printStackTrace();
-            }
-        }
-        finally {
-            try {
-                if (conn!=null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+        // lecture d'un joueur
+      /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+       Joueur joueur=joueurRepository.getById(21L);
+       
+       System.out.println(joueur.getPrenom()+" "+joueur.getNom());*/
+//-------------------------------------------------------------------------------
+      // Créer un joueur
+      JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+      Joueur joueur=new Joueur();
+      joueur.setNom("Noah");
+      joueur.setPrenom("Yannik");
+      joueur.setSexe('H');
+      joueurRepository.createJoueur(joueur);
+      
+      System.out.println("L'identifant du joueur crée est "+ joueur.getId());
+ //-------------------------------------------------------------------------------
+      //Modifier un joueur
+      /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+      Joueur joueur = joueurRepository.getById(59L);
+      joueur.setPrenom("Yannick");
+      joueurRepository.updateJoueur(joueur);*/
+ //-------------------------------------------------------------------------------
+      // Supprimer le joueur
+      /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+      joueurRepository.deleteJoueur(59L);*/
+    
+ //-------------------------------------------------------------------------------
+     /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+    List<Joueur> liste=joueurRepository.lister();
+    
+    for (Joueur joueur:liste){
+    System.out.println(joueur.getPrenom()+" "+joueur.getNom());
+    }*/
+ //-------------------------------------------------------------------------------
+}
+    
 }

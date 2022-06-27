@@ -5,13 +5,16 @@
  */
 package com.mycompany.tennis.core.repository;
 
+import com.mycompany.tennis.core.DataSourceProvider;
 import com.mycompany.tennis.core.entity.Joueur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 /**
@@ -22,26 +25,26 @@ public class JoueurRepositoryImpl {
     
   public void createJoueur(Joueur joueur){
        Connection conn = null;
-        try {  
-            BasicDataSource dataSource=new BasicDataSource();
-            
-            dataSource.setInitialSize(5);
-            
-            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUsername("COURSDB");
-            dataSource.setPassword("COURSDB");
+        try { 
+           // Pas besoin de spécifier que dataSource est une BasicDataSource, puis qu'il avait déja été spécifié plus haut.
+           DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
             
             conn=dataSource.getConnection();
   
-             PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)");
-                    
+             PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
+             
              // on ne prepare pas ID parce qu il est automatiquement cree par la BD  
              preparedStatement.setString(1,joueur.getNom());
              preparedStatement.setString(2,joueur.getPrenom());
              preparedStatement.setString(3,joueur.getSexe().toString());
              
-             preparedStatement.executeUpdate(); // executeUpdate est le même pour la methode create et update
-     
+             preparedStatement.executeUpdate();                         //ExecuteUpdate est le même pour la methode create et update
+             ResultSet rs=preparedStatement.getGeneratedKeys();        //Recuperation dune cle, il peut sagir de plusieur, ici nous voulons recuprer l'ID
+             
+             if (rs.next()){
+              joueur.setId(rs.getLong(1));                         //  Definition de l'ID joueur récupérer
+             }
+             
              System.out.println("Le joueur a bien été créé");
             
         } catch (SQLException e) {
@@ -65,20 +68,13 @@ public class JoueurRepositoryImpl {
     }
   
   
-  public void UpdateJoueur(Joueur joueur){
+  public void updateJoueur(Joueur joueur){
        Connection conn = null;
         try {  
-            BasicDataSource dataSource=new BasicDataSource();
-            
-            dataSource.setInitialSize(5);
-            
-            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUsername("COURSDB");
-            dataSource.setPassword("COURSDB");
-            
+            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
             conn=dataSource.getConnection();
   
-             PreparedStatement preparedStatement=conn.prepareStatement("UPDATE JOUEUR SET NOM=?, PRENOM=?, SEXE=? ) WHERE ID=?");
+             PreparedStatement preparedStatement=conn.prepareStatement("UPDATE JOUEUR SET NOM=?, PRENOM=?, SEXE=? WHERE ID=?");
              
                
              preparedStatement.setString(1,joueur.getNom());
@@ -109,26 +105,19 @@ public class JoueurRepositoryImpl {
             }
         }
     }
- 
+
   
-  
-  public void DeleteJoueur(Joueur joueur){
+  public void deleteJoueur(Long id){
        Connection conn = null;
         try {  
-            BasicDataSource dataSource=new BasicDataSource();
-            
-            dataSource.setInitialSize(5);
-            
-            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUsername("COURSDB");
-            dataSource.setPassword("COURSDB");
+           DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
             
             conn=dataSource.getConnection();
   
-             PreparedStatement preparedStatement=conn.prepareStatement("DELETE JOUEUR WHERE ID=?");
+             PreparedStatement preparedStatement=conn.prepareStatement("DELETE FROM JOUEUR WHERE ID=?");
              
              //Je n'ai plus qu'un seul parametre a valoriser et c'est id 
-             preparedStatement.setLong(1,joueur.getId());
+             preparedStatement.setLong(1,id);
              
              preparedStatement.executeUpdate(); // executeUpdate est le même pour la methode create et update
      
@@ -159,13 +148,7 @@ public class JoueurRepositoryImpl {
        Connection conn = null;
        Joueur joueur = null; // Attention, une colonne dans la base de donn/es ne peut être nulle
         try {  
-            BasicDataSource dataSource=new BasicDataSource();
-            
-            dataSource.setInitialSize(5);
-            
-            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUsername("COURSDB");
-            dataSource.setPassword("COURSDB");
+            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
             
             conn=dataSource.getConnection();
   
@@ -178,7 +161,7 @@ public class JoueurRepositoryImpl {
              if (rs.next()){
                  
                joueur = new Joueur();
-               
+               joueur.setId(id);
                joueur.setNom(rs.getString("NOM"));
                joueur.setPrenom(rs.getString("PRENOM"));
                joueur.setSexe(rs.getString("SEXE").charAt(0));
@@ -213,21 +196,15 @@ public class JoueurRepositoryImpl {
        Connection conn = null;
        List<Joueur> listDeJoueurs=new ArrayList();
         try {  
-            BasicDataSource dataSource=new BasicDataSource();
-            
-            dataSource.setInitialSize(5);
-            
-            dataSource.setUrl("jdbc:mysql://localhost:3306/tennis?useSSL=false");
-            dataSource.setUsername("COURSDB");
-            dataSource.setPassword("COURSDB");
-            
+            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
+           
             conn=dataSource.getConnection();
   
-             PreparedStatement preparedStatement=conn.prepareStatement("SELECT NOM, PRENOM, SEXE FROM JOUEUR WHERE ID=?");
+             PreparedStatement preparedStatement=conn.prepareStatement("SELECT ID, NOM, PRENOM, SEXE FROM JOUEUR");
              
              
             ResultSet rs =  preparedStatement.executeQuery(); // ici c'est un read(Une lecture, donc c'est executeQuery.
-            if(rs.next()){
+           while(rs.next()){
                Joueur joueur = new Joueur();
                
                joueur.setId(rs.getLong("ID"));
