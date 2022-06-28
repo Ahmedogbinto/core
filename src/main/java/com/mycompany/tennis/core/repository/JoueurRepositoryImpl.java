@@ -169,7 +169,9 @@ public class JoueurRepositoryImpl {
                 
             }
             
-             System.out.println("Le joueur est bien affiché(lu)");   
+             System.out.println("Le joueur est bien affiché(lu)");
+             System.out.println(joueur.getId()+" "+joueur.getPrenom()+" "+joueur.getNom());
+             
         }
         catch (SQLException e) {
             e.printStackTrace();

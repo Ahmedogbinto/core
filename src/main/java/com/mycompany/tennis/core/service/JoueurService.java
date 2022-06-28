@@ -22,4 +22,8 @@ public class JoueurService {
     public void create(Joueur joueur){
        joueurRepository.createJoueur(joueur);// cette methode ne fait juste qu'appelée la methode createJoueur
     }
+    
+    public void getJoueur(long id){
+        joueurRepository.getById(id);
+    }
 }

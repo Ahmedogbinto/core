@@ -28,7 +28,7 @@ public class TournoiRepositoryImpl {
         try{
             DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
             conn=dataSource.getConnection();
-            PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO TOURNOI(NOM, CODE) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO TOURNOI(NOM, CODE) VALUES(?,?)",Statement.RETURN_GENERATED_KEYS);
            
              preparedStatement.setString(1,tournoi.getNom());
              preparedStatement.setString(2,tournoi.getCode().toString());
@@ -40,6 +40,7 @@ public class TournoiRepositoryImpl {
              }
              
              System.out.println("Un nouveau tournoi a bien été créé et ajouté");
+             System.out.println("son identifiant est "+tournoi.getId());
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -81,6 +82,7 @@ public class TournoiRepositoryImpl {
             }
              
              System.out.println("le tournoi à afficher est:");
+             System.out.println(tournoi.getId()+" "+tournoi.getNom()+" "+tournoi.getCode());
         }
         catch(SQLException e){
             e.printStackTrace();
