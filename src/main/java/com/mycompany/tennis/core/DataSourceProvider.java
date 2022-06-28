@@ -13,9 +13,9 @@ import org.apache.commons.dbcp2.BasicDataSource;
  * @author User
  */
 public class DataSourceProvider {
-  private static BasicDataSource singleDataSource;
+  private static BasicDataSource singleDataSource; //
   
-  public static DataSource getSingleDataSourceInstance(){
+  public static DataSource getSingleDataSourceInstance(){ // Mise en place de lA POOL DE CONNECTION AVEC LA BD
       if(singleDataSource==null){
             singleDataSource=new BasicDataSource();
             singleDataSource.setInitialSize(5);

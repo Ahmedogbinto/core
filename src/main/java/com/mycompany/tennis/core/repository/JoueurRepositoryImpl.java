@@ -33,7 +33,7 @@ public class JoueurRepositoryImpl {
   
              PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
              
-             // on ne prepare pas ID parce qu il est automatiquement cree par la BD  
+             // on ne prepare pas ID parce qu il est automatiquement cree par la BD  => On l'a défini en un second temps avec RETURN_GENERATED_KEYS
              preparedStatement.setString(1,joueur.getNom());
              preparedStatement.setString(2,joueur.getPrenom());
              preparedStatement.setString(3,joueur.getSexe().toString());
