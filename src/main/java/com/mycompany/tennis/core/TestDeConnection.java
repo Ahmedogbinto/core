@@ -5,6 +5,9 @@
  */
 package com.mycompany.tennis.core;
 
+import com.mycompany.tennis.core.entity.Joueur;
+import com.mycompany.tennis.core.repository.JoueurRepositoryImpl;
+
 /**
  *
  * @author User
@@ -19,14 +22,12 @@ public class TestDeConnection {
        System.out.println(joueur.getPrenom()+" "+joueur.getNom());*/
 //-------------------------------------------------------------------------------
       // Créer un joueur
-      /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+      JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl(); // Interaction avec le Repository 
       Joueur joueur=new Joueur();
       joueur.setNom("Noah");
       joueur.setPrenom("Yannik");
       joueur.setSexe('H');
       joueurRepository.createJoueur(joueur);
-      
-      System.out.println("L'identifant du joueur crée est "+ joueur.getId());*/
  //-------------------------------------------------------------------------------
       //Modifier un joueur
       /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();

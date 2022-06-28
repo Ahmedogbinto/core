@@ -45,7 +45,8 @@ public class JoueurRepositoryImpl {
               joueur.setId(rs.getLong(1));                         //  Definition de l'ID joueur récupérer
              }
              
-             System.out.println("Le joueur a bien été créé");
+              System.out.println("Le joueur a bien été créé");
+              System.out.println("L'identifiant du joueur créé est "+joueur.getId());
             
         } catch (SQLException e) {
             e.printStackTrace();
