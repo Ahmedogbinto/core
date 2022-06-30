@@ -30,12 +30,12 @@ public class TravauxPratiques {
       
    //----------------------------------------------------------------------------------------------------------
    // créer un nouveau Tournoi
-    TournoiRepositoryImpl tournoiRepository=new TournoiRepositoryImpl();
+        /*TournoiRepositoryImpl tournoiRepository=new TournoiRepositoryImpl();
      
     Tournoi tournoi=new Tournoi();
     tournoi.setNom("AFrican Tennis");
     tournoi.setCode("AT");
-    tournoiRepository.createTournoi(tournoi);
+    tournoiRepository.createTournoi(tournoi);*/
    //----------------------------------------------------------------------------------------------------------
    // Lire un tournoi
        /* TournoiRepositoryImpl tournoiRepository=new TournoiRepositoryImpl();
