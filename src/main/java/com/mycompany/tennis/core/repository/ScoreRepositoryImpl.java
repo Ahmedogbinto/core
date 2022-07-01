@@ -33,32 +33,29 @@ public class ScoreRepositoryImpl {
              // on ne prepare pas ID parce qu il est automatiquement cree par la BD  => On l'a défini en un second temps avec RETURN_GENERATED_KEYS
              
              preparedStatement.setLong(1,score.getMatch().getId());
-             //--------------------------------------------------------------
              preparedStatement.setByte(2,score.getSet1());
-             //--------------------------------------------------------------
              preparedStatement.setByte(3,score.getSet2());
-             //--------------------------------------------------------------
+             
              if(score.getSet3()==null){
                  preparedStatement.setNull(4,Types.TINYINT);
              }
              else{
                  preparedStatement.setByte(4,score.getSet3()); 
              }
-             //--------------------------------------------------------------
+            
              if(score.getSet4()==null){
                  preparedStatement.setNull(5,Types.TINYINT);
              }
              else{
                   preparedStatement.setByte(5,score.getSet4());
              }
-             //--------------------------------------------------------------
+            
              if(score.getSet5()==null){
                  preparedStatement.setNull(6,Types.TINYINT);
              }
              else{
                   preparedStatement.setByte(6,score.getSet5());
              }
-             //--------------------------------------------------------------
              
              preparedStatement.executeUpdate();                          //ExecuteUpdate est le même pour la methode create et update
              ResultSet rs=preparedStatement.getGeneratedKeys();         //Recuperation dune cle, il peut sagir de plusieur, ici nous voulons recuprer l'ID

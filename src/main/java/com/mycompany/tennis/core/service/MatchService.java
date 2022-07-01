@@ -6,8 +6,7 @@
 package com.mycompany.tennis.core.service;
 
 import com.mycompany.tennis.core.entity.Match;
-import com.mycompany.tennis.core.repository.MatchRepositoryImpl;
-import com.mycompany.tennis.core.repository.ScoreRepositoryImpl;
+import dao.MatchDaoImpl;
 
 /**
  *
@@ -16,17 +15,20 @@ import com.mycompany.tennis.core.repository.ScoreRepositoryImpl;
 public class MatchService {
     // cette classe service va béneficier de deux Repository MatchRepo et ScoreRepo 
     
-    private MatchRepositoryImpl matchRepository=new MatchRepositoryImpl();
-    private ScoreRepositoryImpl scoreRepository=new ScoreRepositoryImpl();
+    /*private MatchRepositoryImpl matchRepository=new MatchRepositoryImpl();
+    private ScoreRepositoryImpl scoreRepository=new ScoreRepositoryImpl();*/
     
+    MatchDaoImpl matchDao;
     public MatchService(){ 
-        this.scoreRepository=new ScoreRepositoryImpl();
-        this.matchRepository=new MatchRepositoryImpl();
+        /*this.scoreRepository=new ScoreRepositoryImpl();
+        this.matchRepository=new MatchRepositoryImpl();*/
+    matchDao = new MatchDaoImpl();
     }
+    
      
     public void enregistrerNouveauMatch(Match match){
-        matchRepository.createMatch(match);                                         // creer un enregistrement dans la table match pour recuperer son id
-        scoreRepository.createScore(match.getScore());          // Ensuite scorerepository qui dispose d<une clee vers le match pour connaitre le score du match
-        
+        /*matchRepository.createMatch(match);                                         // creer un enregistrement dans la table match pour recuperer son id
+        scoreRepository.createScore(match.getScore());*/          // Ensuite scorerepository qui dispose d<une clee vers le match pour connaitre le score du match
+        matchDao.createMatchWithScore(match);
     }
 }
