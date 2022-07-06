@@ -44,7 +44,8 @@ public class TestDeConnection {
       joueurRepository.deleteJoueur(59L);*/
     
  //-------------------------------------------------------------------------------
-     /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
+     // liste des joueurs
+    /*JoueurRepositoryImpl joueurRepository=new JoueurRepositoryImpl();
     List<Joueur> liste=joueurRepository.lister();
     
     for (Joueur joueur:liste){

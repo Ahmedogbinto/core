@@ -19,11 +19,12 @@ public class JoueurService {
         this.joueurRepository=new JoueurRepositoryImpl();
     }
     
-    public void create(Joueur joueur){
+    public void createNouveauJoueur(Joueur joueur){
        joueurRepository.createJoueur(joueur);// cette methode ne fait juste qu'appelée la methode createJoueur
     }
     
-    public void getJoueur(long id){
-        joueurRepository.getById(id);
+    public Joueur getJoueur(long id){
+       return joueurRepository.getById(id);
+        
     }
 }
