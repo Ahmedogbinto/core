@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -25,52 +26,33 @@ import org.hibernate.Session;
 public class JoueurRepositoryImpl {
     
   public void createJoueur(Joueur joueur){
-       Connection conn = null;
+            Session session=null;
+            Transaction tx=null;
         try { 
-           // Pas besoin de spécifier que dataSource est une BasicDataSource, puis qu'il avait déja été spécifié plus haut.
-           DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
-            
-            conn=dataSource.getConnection();
-  
-             PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO JOUEUR(NOM, PRENOM, SEXE) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
-             
-             // on ne prepare pas ID parce qu il est automatiquement cree par la BD  => On l'a défini en un second temps avec RETURN_GENERATED_KEYS
-             preparedStatement.setString(1,joueur.getNom());
-             preparedStatement.setString(2,joueur.getPrenom());
-             preparedStatement.setString(3,joueur.getSexe().toString());
-             
-             preparedStatement.executeUpdate();                         //ExecuteUpdate est le même pour la methode create et update
-             ResultSet rs=preparedStatement.getGeneratedKeys();        //Recuperation dune cle, il peut sagir de plusieur, ici nous voulons recuprer l'ID
-             
-             if (rs.next()){
-              joueur.setId(rs.getLong(1));                         //  Definition de l'ID joueur récupérer
-             }
+           session=HibernateUtil.getSessionFactory().openSession();
+           tx=session.beginTransaction();
+           session.persist(joueur);
+           tx.commit();
              
               System.out.println("Le joueur a bien été créé");
               System.out.println("L'identifiant du joueur créé est "+joueur.getId());
             
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            if(tx!=null){
+                tx.rollback();
+            }
             e.printStackTrace();
-            try{
-               if(conn!=null) conn.rollback();
             }
-            catch(SQLException e1){
-                e1.printStackTrace();
-            }
-        }
-        finally {
-            try {
-                if (conn!=null) {
-                    conn.close();
+         finally { 
+                if (session!=null) {
+                    session.close();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
-    }
+    
   
   
-  public void updateJoueur(Joueur joueur){
+        public void updateJoueur(Joueur joueur){
        Connection conn = null;
         try {  
             DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
@@ -106,10 +88,10 @@ public class JoueurRepositoryImpl {
                 e.printStackTrace();
             }
         }
-    }
+     }
 
   
-  public void deleteJoueur(Long id){
+        public void deleteJoueur(Long id){
        Connection conn = null;
         try {  
            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
