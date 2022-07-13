@@ -16,13 +16,13 @@ public class InterfaceUtilisateur {
     
     public static void main(String... args){
         
-       /*JoueurController joueurController=new JoueurController(); 
-         joueurController.afficherDetailsJoueur();                   // Lire un joueur en connaissanbt son id
-       /*joueurController.creerJoueur();*/                           // Créer un joueur
+       JoueurController joueurController=new JoueurController(); 
+        /* joueurController.afficherDetailsJoueur();                     // Lire un joueur en connaissanbt son id
+        /* joueurController.creerJoueur(); */                         // Créer un joueur
   //------------------------------------------------------------------------------------------------------------------- 
        TournoiController tournoiController = new TournoiController();
-       tournoiController.afficherDetailsTournoi();
-      /*tournoiController.creerTournoi();*/
+       /* tournoiController.afficherDetailsTournoi(); */
+        tournoiController.creerTournoi();
          
     }
     

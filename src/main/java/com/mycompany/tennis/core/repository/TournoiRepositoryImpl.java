@@ -11,11 +11,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
 
 /**
@@ -26,44 +27,29 @@ import ressourceUtil.HibernateUtil;
 public class TournoiRepositoryImpl {
     
     public void createTournoi(Tournoi tournoi){
-        Connection conn = null;
+            Session session = null;
+            Transaction tx = null;
         try{
-            
-            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
-            conn=dataSource.getConnection();
-            PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO TOURNOI(NOM, CODE) VALUES(?,?)",Statement.RETURN_GENERATED_KEYS);
-           
-             preparedStatement.setString(1,tournoi.getNom());
-             preparedStatement.setString(2,tournoi.getCode().toString());
-         
-             preparedStatement.executeUpdate();  
-             ResultSet rs=preparedStatement.getGeneratedKeys(); 
-             if (rs.next()){
-              tournoi.setId(rs.getLong(1));
-             }
+           session=HibernateUtil.getSessionFactory().openSession();
+           tx=session.beginTransaction();
+           session.persist(tournoi);
+           tx.commit();
              
              System.out.println("Un nouveau tournoi a bien été créé et ajouté");
              System.out.println("son identifiant est "+tournoi.getId());
         }
-        catch(SQLException e){
-            e.printStackTrace();
-            try{
-               if(conn!=null) conn.rollback();
+        catch(Exception e){
+            if(tx!=null){
+             tx.rollback();
             }
-            catch(SQLException e1){
-                e1.printStackTrace();
-            }
+              e.printStackTrace();
         }
         finally {
-            try {
-                if (conn!=null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }  
-        }
-    }    
+            if (session!=null) {
+                session.close();
+             }      
+        } 
+    } 
     
     public Tournoi getById(Long id){
         Session session = null;
