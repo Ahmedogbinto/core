@@ -9,6 +9,7 @@ package com.mycompany.tennis.core.entity;
  *
  * @author User
  */
+
 public class Match {
     private Long id ;
     private Joueur vainqueur;

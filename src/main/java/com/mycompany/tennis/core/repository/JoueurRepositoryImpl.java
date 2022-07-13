@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.core.repository;
 
+import ressourceUtil.HibernateUtil;
 import com.mycompany.tennis.core.DataSourceProvider;
 import com.mycompany.tennis.core.entity.Joueur;
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.Session;
 
 /**
  *
@@ -143,59 +144,32 @@ public class JoueurRepositoryImpl {
             }
         }
     }
-
+  
+//--------------------------------------------------------------------------------------------------------------------
   
   public Joueur getById(Long id){
-       Connection conn = null;
-       Joueur joueur = null; // Attention, une colonne dans la base de donn/es ne peut être nulle
-        try {  
-            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
-            
-            conn=dataSource.getConnection();
-  
-             PreparedStatement preparedStatement=conn.prepareStatement("SELECT NOM, PRENOM, SEXE FROM JOUEUR WHERE ID=?");
-             
-             //Je n'ai plus qu'un seul parametre a valoriser et c'est id 
-             preparedStatement.setLong(1,id);
-             
-            ResultSet rs =  preparedStatement.executeQuery(); // ici c'est un read(Une lecture, donc c'est executeQuery.
-             if (rs.next()){
-                 
-               joueur = new Joueur();
-               joueur.setId(id);
-               joueur.setNom(rs.getString("NOM"));
-               joueur.setPrenom(rs.getString("PRENOM"));
-               joueur.setSexe(rs.getString("SEXE").charAt(0));
-                
-            }
-            
-             System.out.println("Le joueur est bien affiché(lu)");
-             System.out.println(joueur.getId()+" "+joueur.getPrenom()+" "+joueur.getNom());
-             
+      Joueur joueur = null;
+      Session session = null;
+      try{
+          session=HibernateUtil.getSessionFactory().openSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          joueur=session.get(Joueur.class,id);
+          
+          System.out.println("Le joueur est bien affiché(lu)");          
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-            try{
-               if(conn!=null) conn.rollback();
-            }
-            catch(SQLException e1){
-                e1.printStackTrace();
-            }
-        }
-        finally {
-            try {
-                if (conn!=null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return joueur; // return pourrait potentielement retourner null, dans le cas ou l'identifiant passé en parametre ne correspond a aucun joueur de la base données
+      catch(Throwable t){
+          t.printStackTrace();
+      }
+      finally{
+          if(session!=null){
+              session.close();
+          }
+      }
+      return joueur;
     }
   
-  
-    public  List<Joueur> lister(){
+  //-----------------------------------------------------------------------------------------------------------------------
+   
+  public  List<Joueur> lister(){
        Connection conn = null;
        List<Joueur> listDeJoueurs=new ArrayList();
         try {  

@@ -15,6 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+import org.hibernate.Session;
+import ressourceUtil.HibernateUtil;
 
 /**
  *
@@ -26,6 +28,7 @@ public class TournoiRepositoryImpl {
     public void createTournoi(Tournoi tournoi){
         Connection conn = null;
         try{
+            
             DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
             conn=dataSource.getConnection();
             PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO TOURNOI(NOM, CODE) VALUES(?,?)",Statement.RETURN_GENERATED_KEYS);
@@ -63,43 +66,25 @@ public class TournoiRepositoryImpl {
     }    
     
     public Tournoi getById(Long id){
-        Connection conn = null;
+        Session session = null;
         Tournoi tournoi = null;
         try{
-            DataSource dataSource=DataSourceProvider.getSingleDataSourceInstance();
-            conn=dataSource.getConnection();
-            PreparedStatement preparedStatement=conn.prepareStatement("SELECT NOM,CODE FROM TOURNOI WHERE ID=?");
-           
-             preparedStatement.setLong(1,id);
-         
-             ResultSet rs =  preparedStatement.executeQuery(); 
-             if (rs.next()){
-                 
-               tournoi = new Tournoi();
-               tournoi.setId(id);
-               tournoi.setNom(rs.getString("NOM"));
-               tournoi.setCode(rs.getString("CODE"));  
-            }
+             session=HibernateUtil.getSessionFactory().openSession();
+             tournoi=session.get(Tournoi.class,id);
              
              System.out.println("le tournoi à afficher est:");
-             System.out.println(tournoi.getId()+" "+tournoi.getNom()+" "+tournoi.getCode());
+                 
         }
-        catch(SQLException e){
-            e.printStackTrace();
-            try{
-               if(conn!=null) conn.rollback();
-            }
-            catch(SQLException e1){
-                e1.printStackTrace();
-            }
-        }
+        catch(Throwable t){
+            t.printStackTrace(); 
+        } 
         finally {
             try {
-                if (conn!=null) {
-                    conn.close();
+                if (session!=null) {
+                    session.close();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (Throwable t) {
+                t.printStackTrace();
             }  
         }
         return tournoi;

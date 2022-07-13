@@ -27,9 +27,9 @@ public class TournoiController {
         Long identifiant=sc.nextLong();   
         Tournoi tournoiRecupere=tournoiService.getTournoi(identifiant);
         
-        System.out.println("Le Tounoin  que vous aviez sélectionné s'appelle: "+tournoiRecupere.getNom()+" "+tournoiRecupere.getCode());
+        System.out.println("Le Tounoi  que vous aviez sélectionné s'appelle: "+tournoiRecupere.getId()+" "+tournoiRecupere.getNom()+" "+tournoiRecupere.getCode());
     }
-    
+     
   public void creerTournoi(){
         Tournoi tournoiCree = new Tournoi();
         
