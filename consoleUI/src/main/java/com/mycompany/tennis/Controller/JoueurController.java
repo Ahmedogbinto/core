@@ -46,7 +46,20 @@ public class JoueurController {
          joueurService.createNouveauJoueur(joueurCree);
          System.out.println("Le joueur a été créé et ajouter dans la base de données");
         
-         
+    }
+    
+    public void renommeJoueur(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Quel est l'identifiant du joueur à modifier");
+        long identifiant = scanner.nextLong();
+        scanner.nextLine();
+        System.out.println("Quel est le nouveau nom du joueur");
+        String nouveauNom = scanner.nextLine();
+        
+        joueurService.renommer(identifiant, nouveauNom);
+        
+        
+       
     }
 }
 

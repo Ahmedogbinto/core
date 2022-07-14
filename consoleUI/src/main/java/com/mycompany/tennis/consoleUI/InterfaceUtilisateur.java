@@ -18,12 +18,15 @@ public class InterfaceUtilisateur {
         
        JoueurController joueurController=new JoueurController(); 
         /* joueurController.afficherDetailsJoueur();                     // Lire un joueur en connaissanbt son id
-        /* joueurController.creerJoueur(); */                         // Créer un joueur
+        /* joueurController.creerJoueur(); */                            // Créer un joueur
+           joueurController.renommeJoueur();
   //------------------------------------------------------------------------------------------------------------------- 
-       TournoiController tournoiController = new TournoiController();
-       /* tournoiController.afficherDetailsTournoi(); */
-        tournoiController.creerTournoi();
-         
+         /* TournoiController tournoiController = new TournoiController();
+            tournoiController.afficherDetailsTournoi(); 
+            tournoiController.creerTournoi();*/
+   //----------------------------------------------------------------------------------------------------------     
+   
+    
     }
     
 }

@@ -12,12 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 
 /**
  *
@@ -50,7 +50,32 @@ public class JoueurRepositoryImpl {
             }
         } 
     }
-  
+  public void renommer(Long id, String nouveauNom){
+        Joueur joueur = null;
+        Transaction tx = null;
+        Session session = null;
+      try{
+          session=HibernateUtil.getSessionFactory().openSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          joueur=session.get(Joueur.class,id);
+          joueur.setNom(nouveauNom);
+          tx.commit();
+          
+          System.out.println("Le joueur a été bien modifié dans la base de données");          
+        }
+         catch (Exception e) {
+            if(tx!=null){
+              tx.rollback();
+            }
+           e.printStackTrace();
+            }
+         finally{
+          if(session!=null){
+              session.close();
+          }
+      }
+      
+  }  
   
   public void updateJoueur(Joueur joueur){
        Connection conn = null;
@@ -106,6 +131,7 @@ public class JoueurRepositoryImpl {
              preparedStatement.executeUpdate(); // executeUpdate est le même pour la methode create et update
      
              System.out.println("Le joueur a bien été supprimé");
+             
             
         } catch (SQLException e) {
             e.printStackTrace();
