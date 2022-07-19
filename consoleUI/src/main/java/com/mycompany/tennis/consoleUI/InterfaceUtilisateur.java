@@ -17,9 +17,11 @@ public class InterfaceUtilisateur {
     public static void main(String... args){
         
        JoueurController joueurController=new JoueurController(); 
-        /* joueurController.afficherDetailsJoueur();                     // Lire un joueur en connaissanbt son id
+        /* joueurController.afficherDetailsJoueur();                      // Lire un joueur en connaissanbt son id
         /* joueurController.creerJoueur(); */                            // Créer un joueur
-           joueurController.renommeJoueur();
+        /*joueurController.renommeJoueur(); */                          
+         
+        joueurController.ChangerSexeJoueur();                            // Changer le sexe d'un joueur
   //------------------------------------------------------------------------------------------------------------------- 
          /* TournoiController tournoiController = new TournoiController();
             tournoiController.afficherDetailsTournoi(); 

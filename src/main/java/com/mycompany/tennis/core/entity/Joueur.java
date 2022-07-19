@@ -43,7 +43,6 @@ public class Joueur {
     }
     
     
-    
     public Long getId() {
         return id;
     }

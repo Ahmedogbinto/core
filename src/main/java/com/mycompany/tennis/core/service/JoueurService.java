@@ -7,10 +7,10 @@ package com.mycompany.tennis.core.service;
 
 import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.repository.JoueurRepositoryImpl;
-import java.sql.SQLException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
+
 
 /**
  *
@@ -49,17 +49,21 @@ public class JoueurService {
         }
     }
     
-    public Joueur getJoueur(long id){
+   
+    public Joueur getJoueur(Long id){
         Session session = null;
         Transaction tx = null;
-        Joueur joueur;
+        Joueur joueur = null;
+        
         try{
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           joueur = joueurRepository.getById(id);
           tx.commit();
           
-          System.out.println("Le joueur a bien lu");  
+          System.out.println("Le joueur a bien lu"
+          
+          );  
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -72,22 +76,22 @@ public class JoueurService {
                     session.close();
                 }
          }
-        return joueurRepository.getById(id); 
+        return joueur; 
     }
     
          
-    
-    
-    
-    public void renommer(long id, String nouveauNom){
+    public void renommer(Long id, String nouveauNom){
+        Joueur joueur = getJoueur(id); // Objet non persistant
+        
         Session session = null;
         Transaction tx = null;
         
         try{
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
-          Joueur joueur = joueurRepository.getById(id);
+          
           joueur.setNom(nouveauNom);
+          Joueur joueur2 = (Joueur)session.merge(joueur);
           tx.commit();
           
           System.out.println("Le joueur a bien été modifier dans la base de donnees");  
@@ -104,4 +108,36 @@ public class JoueurService {
                 }
          }
     }
+    
+    public void changerSexe(Long id, Character nouveauSexe){
+        
+        Joueur joueur = getJoueur(id); // Objet non persistant
+        
+        Session session = null;
+        Transaction tx = null;
+        
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          
+          joueur.setSexe(nouveauSexe);
+          Joueur joueur2 = (Joueur)session.merge(joueur);
+          tx.commit();
+          
+          System.out.println("Le joueur a bien été modifier dans la base de donnees");  
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+         }
+    }
+    
+    
 }

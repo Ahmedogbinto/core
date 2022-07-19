@@ -28,8 +28,7 @@ public class JoueurRepositoryImpl {
             Session session;
             
             session = HibernateUtil.getSessionFactory().getCurrentSession();
-            session.persist(joueur);
-           
+            session.persist(joueur);   
         } 
     
 
