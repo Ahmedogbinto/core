@@ -139,5 +139,32 @@ public class JoueurService {
          }
     }
     
+    public void delete(Long id){
+        
+        Session session = null;
+        Transaction tx = null;
+        
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          
+          joueurRepository.deleteJoueur(id);
+          tx.commit();
+          
+          System.out.println("Le joueur a bien été supprimé de la base de donnees");  
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+         }
+    }
+    
     
 }

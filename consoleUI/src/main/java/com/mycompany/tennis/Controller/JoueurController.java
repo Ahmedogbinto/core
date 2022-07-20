@@ -73,9 +73,17 @@ public class JoueurController {
         String nouveauSexe = scanner.nextLine();
         Character sexe=nouveauSexe.charAt(0);
       
-        
-                
         joueurService.changerSexe(identifiant, sexe);
     }
+    
+    public void SupprimerJoueur(){
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Quel est l'identifiant du joueur dont vous vouidriez supprimez");
+        Long identifiant= scanner.nextLong();
+      
+        joueurService.delete(identifiant);
+    }
+            
 }
 

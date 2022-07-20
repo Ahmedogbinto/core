@@ -70,40 +70,13 @@ public class JoueurRepositoryImpl {
     }
 
     public void deleteJoueur(Long id) {
-        Connection conn = null;
-        try {
-            DataSource dataSource = DataSourceProvider.getSingleDataSourceInstance();
-
-            conn = dataSource.getConnection();
-
-            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM JOUEUR WHERE ID=?");
-
-            //Je n'ai plus qu'un seul parametre a valoriser et c'est id 
-            preparedStatement.setLong(1, id);
-
-            preparedStatement.executeUpdate(); // executeUpdate est le même pour la methode create et update
-
-            System.out.println("Le joueur a bien été supprimé");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try {
-                if (conn != null) {
-                    conn.rollback();
-                }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    Joueur joueur = getById(id);
+    
+    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    session.delete(joueur);
+    
         }
-    }
+    
 
 //--------------------------------------------------------------------------------------------------------------------
     public Joueur getById(Long id) {

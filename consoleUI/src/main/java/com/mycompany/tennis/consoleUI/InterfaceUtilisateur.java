@@ -16,16 +16,18 @@ public class InterfaceUtilisateur {
     
     public static void main(String... args){
         
-       JoueurController joueurController=new JoueurController(); 
+      /*  JoueurController joueurController=new JoueurController(); */ 
         /* joueurController.afficherDetailsJoueur();                      // Lire un joueur en connaissanbt son id
         /* joueurController.creerJoueur(); */                            // Créer un joueur
         /*joueurController.renommeJoueur(); */                          
          
-        joueurController.ChangerSexeJoueur();                            // Changer le sexe d'un joueur
+        /* joueurController.ChangerSexeJoueur(); */                           // Changer le sexe d'un joueur
+        /*  joueurController.SupprimerJoueur();  */                           // Supprimer un joueur
   //------------------------------------------------------------------------------------------------------------------- 
-         /* TournoiController tournoiController = new TournoiController();
-            tournoiController.afficherDetailsTournoi(); 
-            tournoiController.creerTournoi();*/
+         TournoiController tournoiController = new TournoiController();
+            /*tournoiController.afficherDetailsTournoi(); */ 
+            /*tournoiController.creerTournoi();*/ 
+            tournoiController.supprimerTournoi();
    //----------------------------------------------------------------------------------------------------------     
    
     

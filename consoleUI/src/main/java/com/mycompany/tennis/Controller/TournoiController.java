@@ -45,4 +45,15 @@ public class TournoiController {
          tournoiService.create(tournoiCree);
          System.out.println("Le tournoi a été créé et ajouter dans la base de données");
 }
+  
+  public void supprimerTournoi(){
+      Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Quel est l'identifiant du tournoi dont vous vouidriez supprimez");
+        Long identifiant= scanner.nextLong();
+      
+      tournoiService.delete(identifiant);
+      
+  }
+  
 }
