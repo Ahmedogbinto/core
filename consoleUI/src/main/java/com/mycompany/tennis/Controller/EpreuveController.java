@@ -20,12 +20,20 @@ public class EpreuveController {
         this.epreuveService = new EpreuveService();
     }
 
-     public void afficherDetailsEpreuve(){
+     public void afficherEpreuve(){
         Scanner sc=new Scanner(System.in);
         System.out.println("Quel est l'identifiant de l'épreuve dont vous voulez affichez les informations");
         long identifiant=sc.nextLong();   
-        Epreuve epreuve=epreuveService.getEpreuve(identifiant);
-        
-        
-     }
+        Epreuve epreuve=epreuveService.getEpreuveSansTournoi(identifiant);
+        System.out.println("Le nom de l'epreuve que vous aviez demande s'est déroulé en "+epreuve.getAnnee()+" iL s'agissait d'une epreuve de type "+epreuve.getTypepeEpreuve() );
+                
+         }
+     
+     public void afficheDetailsEpreuve(){
+         Scanner sc=new Scanner(System.in);
+        System.out.println("Quel est l'identifiant de l'épreuve dont vous voulez affichez les informations");
+        long identifiant=sc.nextLong();   
+        Epreuve epreuve=epreuveService.getEpreuveAvecTournoi(identifiant);
+        System.out.println("Le nom de l'epreuve que vous aviez demande s'est déroulé en "+epreuve.getAnnee()+" il s'agissait du tournoi"+epreuve.getTournoi().getNom());
+         }
 }

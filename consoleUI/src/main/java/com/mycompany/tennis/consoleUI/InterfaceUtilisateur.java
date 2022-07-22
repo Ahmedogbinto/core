@@ -36,7 +36,7 @@ public class InterfaceUtilisateur {
     //------------------------------------------------------------------------------------------------------------
    
     EpreuveController epreuveController = new EpreuveController();
-    epreuveController.afficherDetailsEpreuve();
+    epreuveController.afficheDetailsEpreuve();
     
     }
     
