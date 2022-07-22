@@ -5,14 +5,33 @@
  */
 package com.mycompany.tennis.core.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 /**
  *
  * @author User
  */
+@Entity
 public class Epreuve {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private Short annee;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ID_TOURNOI")
     private Tournoi tournoi;
+    @Column(name="TYPE_EPREUVE")
+    private Character TypeEpreuve;
+
+    
 
     public Long getId() {
         return id;
@@ -38,4 +57,11 @@ public class Epreuve {
         this.tournoi = tournoi;
     }
     
+    public Character getTypepeEpreuve() {
+        return TypeEpreuve;
+    }
+
+    public void setTypepeEpreuve(Character TypepeEpreuve) {
+        this.TypeEpreuve = TypepeEpreuve;
+    }
 }

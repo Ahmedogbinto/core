@@ -14,12 +14,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import javax.sql.DataSource;
+import org.hibernate.Session;
+import ressourceUtil.HibernateUtil;
 
 /**
  *
  * @author User
  */
 public class ScoreRepositoryImpl {
+    
     public void createScore(Score score){
        Connection conn = null;
         try { 
@@ -86,6 +89,19 @@ public class ScoreRepositoryImpl {
             }
         }
     }
+    
+     public Score getById(Long id) {
+        Score score = null;
+        Session session = null;
+
+        session = HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+        score = session.get(Score.class, id);
+
+        System.out.println("Le score a bien été affiché(lu)");
+    
+        return score;
+    }
+
   
     
 }
