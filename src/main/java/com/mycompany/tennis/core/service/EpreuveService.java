@@ -5,6 +5,9 @@
  */
 package com.mycompany.tennis.core.service;
 
+import com.mycompany.tennis.core.Dto.EpreuveFullDto;
+import com.mycompany.tennis.core.Dto.EpreuveLightDto;
+import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Epreuve;
 import com.mycompany.tennis.core.repository.EpreuveRepositoryImpl;
 import org.hibernate.Hibernate;
@@ -23,18 +26,31 @@ public class EpreuveService {
         this.epreuveRepository = new EpreuveRepositoryImpl();
     }
     
-    public Epreuve getEpreuveAvecTournoi(Long id){
+    public EpreuveFullDto getEpreuveAvecTournoi(Long id){
         Session session = null;
         Transaction tx = null;
         Epreuve epreuve = null;
-        
+        EpreuveFullDto dto = null;        
         try{
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           epreuve = epreuveRepository.getById(id);
-         
           Hibernate.initialize(epreuve.getTournoi());                 // C'est comme si vous aviez l'un des getters de la classe HibernateProxy
+          tx.commit();
+          
+          dto = new EpreuveFullDto();
+          dto.setId(epreuve.getId());
+          dto.setAnnee(epreuve.getAnnee());
+          dto.setTypeEpreuve(epreuve.getTypeEpreuve());
+          
+          TournoiDto tournoiDto = new TournoiDto();
+          tournoiDto.setId(epreuve.getTournoi().getId());
+          tournoiDto.setNom(epreuve.getTournoi().getNom());
+          tournoiDto.setCode(epreuve.getTournoi().getCode());
+          
+          dto.setTournoi(tournoiDto); 
         }
+        
         catch (Exception e) {
             e.printStackTrace();
                 if (tx != null) {
@@ -46,18 +62,25 @@ public class EpreuveService {
                     session.close();
                 }
          }
-        return epreuve;      
+        return dto;      
     }
     
-     public Epreuve getEpreuveSansTournoi(Long id){
+     public EpreuveLightDto getEpreuveSansTournoi(Long id){
         Session session = null;
         Transaction tx = null;
         Epreuve epreuve = null;
+        EpreuveLightDto dto = null;
         
         try{
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           epreuve = epreuveRepository.getById(id);
+          tx.commit();
+          
+          dto = new EpreuveLightDto();
+          dto.setId(epreuve.getId());
+          dto.setAnnee(epreuve.getAnnee());
+          dto.setTypeEpreuve(epreuve.getTypeEpreuve());
            
         }
         catch (Exception e) {
@@ -71,7 +94,7 @@ public class EpreuveService {
                     session.close();
                 }
          }
-        return epreuve; 
+        return dto; 
         
     }
     
