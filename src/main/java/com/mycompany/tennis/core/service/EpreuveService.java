@@ -35,9 +35,7 @@ public class EpreuveService {
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           epreuve = epreuveRepository.getById(id);
-          Hibernate.initialize(epreuve.getTournoi());                 // C'est comme si vous aviez l'un des getters de la classe HibernateProxy
-          tx.commit();
-          
+       
           dto = new EpreuveFullDto();
           dto.setId(epreuve.getId());
           dto.setAnnee(epreuve.getAnnee());
@@ -47,6 +45,7 @@ public class EpreuveService {
           tournoiDto.setId(epreuve.getTournoi().getId());
           tournoiDto.setNom(epreuve.getTournoi().getNom());
           tournoiDto.setCode(epreuve.getTournoi().getCode());
+          tx.commit();
           
           dto.setTournoi(tournoiDto); 
         }
@@ -75,12 +74,12 @@ public class EpreuveService {
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           epreuve = epreuveRepository.getById(id);
-          tx.commit();
-          
+         
           dto = new EpreuveLightDto();
           dto.setId(epreuve.getId());
           dto.setAnnee(epreuve.getAnnee());
           dto.setTypeEpreuve(epreuve.getTypeEpreuve());
+           tx.commit();
            
         }
         catch (Exception e) {

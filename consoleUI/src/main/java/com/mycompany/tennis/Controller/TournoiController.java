@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.Controller;
 
+import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Tournoi;
 import com.mycompany.tennis.core.service.TournoiService;
 import java.util.Scanner;
@@ -25,13 +26,13 @@ public class TournoiController {
         Scanner sc=new Scanner(System.in);
         System.out.println("Quel est l'identifiant du tournoi dont vous voulez affichez les informations");
         Long identifiant=sc.nextLong();   
-        Tournoi tournoiRecupere=tournoiService.getTournoi(identifiant);
+        TournoiDto tournoiRecupere=tournoiService.getTournoi(identifiant);
         
         System.out.println("Le Tounoi  que vous aviez sélectionné s'appelle: "+tournoiRecupere.getId()+" "+tournoiRecupere.getNom()+" "+tournoiRecupere.getCode());
     }
      
   public void creerTournoi(){
-        Tournoi tournoiCree = new Tournoi();
+        TournoiDto tournoiCree = new TournoiDto();
         
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrer le nom du nouveau tournoi :");

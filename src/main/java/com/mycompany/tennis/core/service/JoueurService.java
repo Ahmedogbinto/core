@@ -61,9 +61,7 @@ public class JoueurService {
           joueur = joueurRepository.getById(id);
           tx.commit();
           
-          System.out.println("Le joueur a bien lu"
-          
-          );  
+          System.out.println("Le joueur a bien lu");  
         }
         catch (Exception e) {
             e.printStackTrace();

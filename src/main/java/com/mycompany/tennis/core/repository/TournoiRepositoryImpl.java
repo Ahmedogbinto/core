@@ -29,51 +29,27 @@ public class TournoiRepositoryImpl {
     public void createTournoi(Tournoi tournoi){
             Session session = null;
             Transaction tx = null;
-        try{
+        
            session=HibernateUtil.getSessionFactory().openSession();
            tx=session.beginTransaction();
            session.persist(tournoi);
            tx.commit();
              
              System.out.println("Un nouveau tournoi a bien été créé et ajouté");
-             System.out.println("son identifiant est "+tournoi.getId());
-        }
-        catch(Exception e){
-            if(tx!=null){
-             tx.rollback();
-            }
-              e.printStackTrace();
-        }
-        finally {
-            if (session!=null) {
-                session.close();
-             }      
-        } 
+            
+         
     } 
     
     public Tournoi getById(Long id){
         Session session = null;
         Tournoi tournoi = null;
-        try{
              session=HibernateUtil.getSessionFactory().openSession();
              tournoi=session.get(Tournoi.class,id);
              
              System.out.println("le tournoi à afficher est:");
-                 
-        }
-        catch(Throwable t){
-            t.printStackTrace(); 
-        } 
-        finally {
-            try {
-                if (session!=null) {
-                    session.close();
-                }
-            } catch (Throwable t) {
-                t.printStackTrace();
-            }  
-        }
+        
         return tournoi;
+        
     }
     
     
