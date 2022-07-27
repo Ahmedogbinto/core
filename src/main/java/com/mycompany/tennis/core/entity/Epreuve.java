@@ -25,7 +25,7 @@ public class Epreuve {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private Short annee;
-    @ManyToOne(fetch=FetchType.LAZY       )
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="ID_TOURNOI")
     private Tournoi tournoi;
     @Column(name="TYPE_EPREUVE")

@@ -7,7 +7,6 @@ package com.mycompany.tennis.Controller;
 
 import com.mycompany.tennis.core.Dto.EpreuveFullDto;
 import com.mycompany.tennis.core.Dto.EpreuveLightDto;
-import com.mycompany.tennis.core.entity.Epreuve;
 import com.mycompany.tennis.core.service.EpreuveService;
 import java.util.Scanner;
 

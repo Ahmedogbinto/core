@@ -6,7 +6,6 @@
 package com.mycompany.tennis.Controller;
 
 import com.mycompany.tennis.core.Dto.TournoiDto;
-import com.mycompany.tennis.core.entity.Tournoi;
 import com.mycompany.tennis.core.service.TournoiService;
 import java.util.Scanner;
 

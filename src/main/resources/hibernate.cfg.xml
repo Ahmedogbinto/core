@@ -76,6 +76,8 @@ Contributor(s):
     <mapping class="com.mycompany.tennis.core.entity.Tournoi" />
     <mapping class="com.mycompany.tennis.core.entity.Epreuve" />
     <mapping class="com.mycompany.tennis.core.entity.Score" />
+    <mapping class="com.mycompany.tennis.core.entity.Match" />
+    
    
 
     

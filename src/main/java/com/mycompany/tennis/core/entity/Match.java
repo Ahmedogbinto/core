@@ -5,17 +5,39 @@
  */
 package com.mycompany.tennis.core.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  *
  * @author User
  */
-
+@Entity
+@Table(name="MATCH_TENNIS")
 public class Match {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ID_VAINQUEUR")
     private Joueur vainqueur;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ID_FINALISTE")
     private Joueur finaliste;
+    @Transient
     private Epreuve epreuve;
+    @Transient
     private Score score;
+    
 
     public Score getScore() {
         return score;

@@ -8,7 +8,6 @@ package com.mycompany.tennis.core.service;
 import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Tournoi;
 import com.mycompany.tennis.core.repository.TournoiRepositoryImpl;
-import java.util.HashSet;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
@@ -61,17 +60,17 @@ public class TournoiService {
         Session session = null;
         Transaction tx = null;
         Tournoi tournoi = null;
-        TournoiDto dto = null;
+        TournoiDto tournoiDto = null;
         
         try{
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           tournoi = tournoiRepository.getById(id);
           
-          dto = new TournoiDto();
-          dto.setId(tournoi.getId());
-          dto.setCode(tournoi.getCode());
-          dto.setNom(tournoi.getNom());
+          tournoiDto = new TournoiDto();
+          tournoiDto.setId(tournoi.getId());
+          tournoiDto.setCode(tournoi.getCode());
+          tournoiDto.setNom(tournoi.getNom());
             
           tx.commit();
           
@@ -88,7 +87,7 @@ public class TournoiService {
                     session.close();
                 }
          }
-        return dto; 
+        return tournoiDto; 
        
     }
     

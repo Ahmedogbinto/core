@@ -7,12 +7,15 @@ package com.mycompany.tennis.core.repository;
 
 import com.mycompany.tennis.core.DataSourceProvider;
 import com.mycompany.tennis.core.entity.Match;
+import com.mycompany.tennis.core.entity.Tournoi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.sql.DataSource;
+import org.hibernate.Session;
+import ressourceUtil.HibernateUtil;
 
 /**
  *
@@ -62,6 +65,18 @@ public class MatchRepositoryImpl {
                 e.printStackTrace();
             }
         }
+    }
+  
+  public Match getById(Long id){
+        Session session = null;
+        Match match = null;
+             session=HibernateUtil.getSessionFactory().openSession();
+             match=session.get(Match.class,id);
+             
+             System.out.println("le Match à afficher est:");
+        
+        return match;
+        
     }
 }
   
