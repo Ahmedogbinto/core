@@ -5,7 +5,7 @@
  */
 package com.mycompany.tennis.Controller;
 
-import com.mycompany.tennis.core.entity.Score;
+import com.mycompany.tennis.core.Dto.ScoreFullDto;
 import com.mycompany.tennis.core.service.ScoreService;
 import java.util.Scanner;
 
@@ -26,7 +26,7 @@ public class ScoreController {
         Scanner sc=new Scanner(System.in);
         System.out.println("Quel est l'identifiant du score dont vous voulez affichez les informations");
         long identifiant=sc.nextLong();   
-        Score scoreRecupere=scoreService.getScore(identifiant);
+        ScoreFullDto scoreRecupere=scoreService.getScore(identifiant);
         
         System.out.println("Le score que vous aviez sélectionné etait de: ");
         System.out.println(+scoreRecupere.getSet1());
@@ -42,6 +42,10 @@ public class ScoreController {
           System.out.println(+scoreRecupere.getSet5());   
         }
  
+        System.out.println("Il s'agit du tournoi "+scoreRecupere.getMatch().getEpreuve().getTournoi().getNom());
+        System.out.println("L'epreuve s'etait déroulé en "+scoreRecupere.getMatch().getEpreuve().getAnnee());
+        System.out.println("Et il s'agissait d'une epreuve de type: "+scoreRecupere.getMatch().getEpreuve().getTypeEpreuve().charValue()=="H" ? "Homme" : "Femme");
+       
     }
     
 }

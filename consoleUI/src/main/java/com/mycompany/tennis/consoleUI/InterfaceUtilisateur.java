@@ -6,6 +6,7 @@
 package com.mycompany.tennis.consoleUI;
 
 import com.mycompany.tennis.Controller.MatchController;
+import com.mycompany.tennis.Controller.ScoreController;
 
 /**
  *
@@ -37,9 +38,13 @@ public class InterfaceUtilisateur {
    /* epreuveController.afficherEpreuve();*/
  //---------------------------------------------------------------------------------------------------------
    
-    MatchController matchController = new MatchController();
-    matchController.afficherDetailsMatch();       
+     /* MatchController matchController = new MatchController();
+    matchController.afficherDetailsMatch();  */    
+//---------------------------------------------------------------------------------------------------------
+    ScoreController scoreController = new ScoreController();
+    scoreController.afficherDetailsScore();
     }
+    
     
 }
 

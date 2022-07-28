@@ -3,55 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.tennis.core.entity;
+package com.mycompany.tennis.core.Dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.mycompany.tennis.core.entity.Match;
 
 /**
  *
  * @author User
  */
-
-@Entity
-@Table(name="score_vainqueur")
-public class Score {  
-
+public class ScoreFullDto {
     
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY) 
-   @Column(name="ID_MATCH")
    private Long id;
-   @Column(name="SET_1")
    private Byte set1;
-   @Column(name="SET_2")
    private Byte set2;
-   @Column(name="SET_3")
    private Byte set3;
-   @Column(name="SET_4")
    private Byte set4;
-   @Column(name="SET_5")
    private Byte set5;
-   @OneToOne(fetch=FetchType.LAZY)
-   @JoinColumn(name="ID_MATCH")
-   private Match match;
+   private MatchDto match;
 
-    public Match getMatch() {
-        return match;
-    }
-
-    public void setMatch(Match match) {
-        this.match = match;
-    }
-   
     public Long getId() {
         return id;
     }
@@ -99,8 +68,16 @@ public class Score {
     public void setSet5(Byte set5) {
         this.set5 = set5;
     }
+
+
+    public MatchDto getMatch() {
+        return match;
+    }
+
+    public void setMatch(MatchDto match) {
+        this.match = match;
+    }
    
    
-            
     
 }

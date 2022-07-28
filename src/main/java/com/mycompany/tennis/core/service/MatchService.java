@@ -68,12 +68,12 @@ public class MatchService {
           vainqueurDto.setSexe(match.getVainqueur().getSexe());
           matchDto.setVainqueur(vainqueurDto);
           
-          EpreuveFullDto epreuveDto = new EpreuveFullDto();              // Debut de conversion de epreuve en Dto pour avoir le nom prenom du finaliste a partir de lId du match 
+          EpreuveFullDto epreuveDto = new EpreuveFullDto();              // Debut de conversion de epreuveDto vers epreuveFullDto pour avoir le nom prenom du finaliste a partir de lId du match 
           epreuveDto.setId(match.getEpreuve().getId());
           epreuveDto.setAnnee(match.getEpreuve().getAnnee());
           epreuveDto.setTypeEpreuve(match.getEpreuve().getTypeEpreuve());
    
-          TournoiDto tournoiDto = new TournoiDto();                      // Debut de conversion de tournoi en Dto pour avoir le nom et le code du tournoi a partir de lId de lepreuve 
+          TournoiDto tournoiDto = new TournoiDto();                      // Debut de conversion de tournoi vers TournoiDto pour avoir le nom et le code du tournoi a partir de lId de lepreuve 
           tournoiDto.setId(match.getEpreuve().getTournoi().getId());
           tournoiDto.setNom(match.getEpreuve().getTournoi().getNom());
           tournoiDto.setCode(match.getEpreuve().getTournoi().getCode());
