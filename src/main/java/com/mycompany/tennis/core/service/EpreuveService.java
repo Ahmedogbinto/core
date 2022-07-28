@@ -40,14 +40,14 @@ public class EpreuveService {
           dto.setId(epreuve.getId());
           dto.setAnnee(epreuve.getAnnee());
           dto.setTypeEpreuve(epreuve.getTypeEpreuve());
-          
+   
           TournoiDto tournoiDto = new TournoiDto();
           tournoiDto.setId(epreuve.getTournoi().getId());
           tournoiDto.setNom(epreuve.getTournoi().getNom());
           tournoiDto.setCode(epreuve.getTournoi().getCode());
-          tx.commit();
-          
           dto.setTournoi(tournoiDto); 
+          
+          tx.commit();
         }
         
         catch (Exception e) {

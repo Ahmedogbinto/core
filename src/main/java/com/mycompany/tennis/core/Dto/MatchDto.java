@@ -13,6 +13,15 @@ public class MatchDto {
     private long id;
     private JoueurDto vainqueur;    
     private JoueurDto finaliste;
+    private EpreuveFullDto epreuve;
+
+    public EpreuveFullDto getEpreuve() {
+        return epreuve;
+    }
+
+    public void setEpreuve(EpreuveFullDto epreuve) {
+        this.epreuve = epreuve;
+    }
 
     public long getId() {
         return id;

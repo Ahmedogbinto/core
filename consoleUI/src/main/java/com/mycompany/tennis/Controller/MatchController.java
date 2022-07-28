@@ -25,7 +25,7 @@ public class MatchController {
         System.out.println("Quel est l'identifiant du matct dont vous voulez affichez les informations");
         long identifiant=sc.nextLong();   
         MatchDto matchDto =matchService.getMatch(identifiant);
-        
+          System.out.println("Il s'agit d'un match de "+matchDto.getEpreuve().getAnnee()+" qui s'est déroulé à "+matchDto.getEpreuve().getTournoi().getNom());
           System.out.println("Le nom et le prenom du vainqueur sont "+matchDto.getVainqueur().getPrenom()+" "+matchDto.getVainqueur().getNom());
           System.out.println("Le nom et le prenom du finaliste sont "+matchDto.getFinaliste().getPrenom()+" "+matchDto.getFinaliste().getNom());      
          }

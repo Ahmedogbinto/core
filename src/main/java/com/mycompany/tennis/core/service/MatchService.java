@@ -5,8 +5,10 @@
  */
 package com.mycompany.tennis.core.service;
 
+import com.mycompany.tennis.core.Dto.EpreuveFullDto;
 import com.mycompany.tennis.core.Dto.JoueurDto;
 import com.mycompany.tennis.core.Dto.MatchDto;
+import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Match;
 import com.mycompany.tennis.core.repository.MatchRepositoryImpl;
 import com.mycompany.tennis.core.repository.ScoreRepositoryImpl;
@@ -52,19 +54,32 @@ public class MatchService {
           matchDto = new MatchDto();
           matchDto.setId(match.getId());
           
-          JoueurDto finalisteDto = new JoueurDto();
+          JoueurDto finalisteDto = new JoueurDto();                    // Debut de conversion de finaliste en Dto pour avoir le nom prenom du finaliste a partir de lId du match     
           finalisteDto.setId(match.getFinaliste().getId());
           finalisteDto.setNom(match.getFinaliste().getNom());
           finalisteDto.setPrenom(match.getFinaliste().getPrenom());
           finalisteDto.setSexe(match.getFinaliste().getSexe());
           matchDto.setFinaliste(finalisteDto);
           
-          JoueurDto vainqueurDto = new JoueurDto();
+          JoueurDto vainqueurDto = new JoueurDto();                     // Debut de conversion de vainqueur en Dto pour avoir le nom prenom du Vainqueur a partir de lId du match 
           vainqueurDto.setId(match.getVainqueur().getId());
           vainqueurDto.setNom(match.getVainqueur().getNom());
           vainqueurDto.setPrenom(match.getVainqueur().getPrenom());
           vainqueurDto.setSexe(match.getVainqueur().getSexe());
           matchDto.setVainqueur(vainqueurDto);
+          
+          EpreuveFullDto epreuveDto = new EpreuveFullDto();              // Debut de conversion de epreuve en Dto pour avoir le nom prenom du finaliste a partir de lId du match 
+          epreuveDto.setId(match.getEpreuve().getId());
+          epreuveDto.setAnnee(match.getEpreuve().getAnnee());
+          epreuveDto.setTypeEpreuve(match.getEpreuve().getTypeEpreuve());
+   
+          TournoiDto tournoiDto = new TournoiDto();                      // Debut de conversion de tournoi en Dto pour avoir le nom et le code du tournoi a partir de lId de lepreuve 
+          tournoiDto.setId(match.getEpreuve().getTournoi().getId());
+          tournoiDto.setNom(match.getEpreuve().getTournoi().getNom());
+          tournoiDto.setCode(match.getEpreuve().getTournoi().getCode());
+          
+          epreuveDto.setTournoi(tournoiDto); 
+          matchDto.setEpreuve(epreuveDto); 
           tx.commit();
           
           System.out.println("Le tournoi est bien lu");
