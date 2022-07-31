@@ -7,6 +7,7 @@ package com.mycompany.tennis.Controller;
 
 import com.mycompany.tennis.core.Dto.EpreuveFullDto;
 import com.mycompany.tennis.core.Dto.EpreuveLightDto;
+import com.mycompany.tennis.core.Dto.JoueurDto;
 import com.mycompany.tennis.core.service.EpreuveService;
 import java.util.Scanner;
 
@@ -35,8 +36,15 @@ public class EpreuveController {
          Scanner sc=new Scanner(System.in);
         System.out.println("Quel est l'identifiant de l'épreuve dont vous voulez affichez les informations");
         long identifiant=sc.nextLong();   
-        EpreuveFullDto epreuve=epreuveService.getEpreuveAvecTournoi(identifiant);
+        EpreuveFullDto epreuve=epreuveService.getEpreuveDetaillee(identifiant);
         
-        System.out.println("Le nom de l'epreuve que vous aviez demande s'est déroulé en "+epreuve.getAnnee()+" il s'agissait du tournoi"+epreuve.getTournoi().getNom());
-         }
+        System.out.println("Le nom du tournoi de cette epreuve etait le: " +epreuve.getTournoi().getNom());
+        System.out.println("Le nom des joueurs participants etaient:");
+         
+        for (JoueurDto joueurDto: epreuve.getParticipants()){
+         
+            System.out.println(joueurDto.getNom()+" "+joueurDto.getPrenom());
+        }
+     }
+     
 }

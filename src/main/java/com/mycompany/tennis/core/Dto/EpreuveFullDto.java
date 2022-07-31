@@ -6,6 +6,7 @@
 package com.mycompany.tennis.core.Dto;
 
 import com.mycompany.tennis.core.entity.Tournoi;
+import java.util.Set;
 
 /**
  *
@@ -17,7 +18,18 @@ public class EpreuveFullDto {
     private Short annee;
     private Tournoi tournoi;
     private Character TypeEpreuve;
+    private Set<JoueurDto> participants;
 
+    public Set<JoueurDto> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<JoueurDto> participants) {
+        this.participants = participants;
+    }
+    
+    
+    
     public Long getId() {
         return id;
     }

@@ -7,9 +7,12 @@ package com.mycompany.tennis.core.service;
 
 import com.mycompany.tennis.core.Dto.EpreuveFullDto;
 import com.mycompany.tennis.core.Dto.EpreuveLightDto;
+import com.mycompany.tennis.core.Dto.JoueurDto;
 import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Epreuve;
+import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.repository.EpreuveRepositoryImpl;
+import java.util.HashSet;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -26,7 +29,7 @@ public class EpreuveService {
         this.epreuveRepository = new EpreuveRepositoryImpl();
     }
     
-    public EpreuveFullDto getEpreuveAvecTournoi(Long id){
+    public EpreuveFullDto getEpreuveDetaillee(Long id){
         Session session = null;
         Transaction tx = null;
         Epreuve epreuve = null;
@@ -46,6 +49,18 @@ public class EpreuveService {
           tournoiDto.setNom(epreuve.getTournoi().getNom());
           tournoiDto.setCode(epreuve.getTournoi().getCode());
           dto.setTournoi(tournoiDto); 
+          
+          dto.setParticipants(new HashSet<>());                   // valorisation de la collection au depart du fait quelle soit null
+          for(Joueur joueur:epreuve.getParticipants()){
+           final JoueurDto joueurDto = new JoueurDto();           // Pour chaque element (conversion de collection de joueur en collection de joueurDto) je vais creer un nouveau joueurDto
+          
+           joueurDto.setId(joueur.getId());
+           joueurDto.setNom(joueur.getNom());
+           joueurDto.setPrenom(joueur.getPrenom());
+           joueurDto.setSexe(joueur.getSexe());
+           
+           dto.getParticipants().add(joueurDto);
+          }
           
           tx.commit();
         }

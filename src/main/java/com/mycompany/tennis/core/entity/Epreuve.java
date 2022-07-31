@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.core.entity;
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
@@ -30,9 +33,24 @@ public class Epreuve {
     private Tournoi tournoi;
     @Column(name="TYPE_EPREUVE")
     private Character TypeEpreuve;
-
     
+    @ManyToMany
+    @JoinTable(
+            name = "PARTICIPANTS",
+            joinColumns={@JoinColumn(name="ID_EPREUVE")},
+            inverseJoinColumns={@JoinColumn(name="ID_JOUEUR")}
+    )
+    private Set<Joueur> participants;
 
+    public Set<Joueur> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<Joueur> participants) {
+        this.participants = participants;
+    }
+   
+    
     public Long getId() {
         return id;
     }
