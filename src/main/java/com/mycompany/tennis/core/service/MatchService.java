@@ -8,6 +8,7 @@ package com.mycompany.tennis.core.service;
 import com.mycompany.tennis.core.Dto.EpreuveFullDto;
 import com.mycompany.tennis.core.Dto.JoueurDto;
 import com.mycompany.tennis.core.Dto.MatchDto;
+import com.mycompany.tennis.core.Dto.ScoreFullDto;
 import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Match;
 import com.mycompany.tennis.core.repository.MatchRepositoryImpl;
@@ -80,6 +81,17 @@ public class MatchService {
           
           epreuveDto.setTournoi(tournoiDto); 
           matchDto.setEpreuve(epreuveDto); 
+          
+          ScoreFullDto scoreDto = new ScoreFullDto();
+          scoreDto.setId(match.getScore().getId());
+          scoreDto.setSet1(match.getScore().getSet1());
+          scoreDto.setSet2(match.getScore().getSet2());
+          scoreDto.setSet3(match.getScore().getSet3());
+          scoreDto.setSet4(match.getScore().getSet4());
+          scoreDto.setSet5(match.getScore().getSet5());
+          
+          matchDto.setScore(scoreDto);
+          scoreDto.setMatch(matchDto);
           tx.commit();
           
           System.out.println("Le tournoi est bien lu");

@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -38,7 +37,7 @@ public class Match {
     @OneToOne(fetch=FetchType.LAZY)               // Par defaut c'est le EAGER, mais quand on est pas sur vaut mieux utiliser le lazy loading
     @JoinColumn(name="ID_EPREUVE")
     private Epreuve epreuve;
-    @Transient
+    @OneToOne(mappedBy="match", fetch=FetchType.LAZY)
     private Score score;
     
 

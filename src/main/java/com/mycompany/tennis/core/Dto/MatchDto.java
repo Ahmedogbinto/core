@@ -14,7 +14,9 @@ public class MatchDto {
     private JoueurDto vainqueur;    
     private JoueurDto finaliste;
     private EpreuveFullDto epreuve;
+    private ScoreFullDto score;
 
+    
     public EpreuveFullDto getEpreuve() {
         return epreuve;
     }
@@ -47,6 +49,13 @@ public class MatchDto {
         this.finaliste = finaliste;
     }
     
+    public ScoreFullDto getScore() {
+        return score;
+    }
+
+    public void setScore(ScoreFullDto score) {
+        this.score = score;
+    }
     
             
 }

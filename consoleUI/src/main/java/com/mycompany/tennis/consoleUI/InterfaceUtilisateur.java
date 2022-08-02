@@ -34,13 +34,13 @@ public class InterfaceUtilisateur {
         /*scoreController.afficherDetailsScore();*/
  //------------------------------------------------------------------------------------------------------------
    
-    EpreuveController epreuveController = new EpreuveController(); 
+      /* EpreuveController epreuveController = new EpreuveController(); 
        epreuveController.afficherDetailsEpreuve(); 
-   /* epreuveController.afficherEpreuve();*/
+            epreuveController.afficherEpreuve();*/
  //---------------------------------------------------------------------------------------------------------
    
-     /* MatchController matchController = new MatchController();
-    matchController.afficherDetailsMatch();  */    
+    MatchController matchController = new MatchController();
+    matchController.afficherDetailsMatch();  
 //---------------------------------------------------------------------------------------------------------
     /* ScoreController scoreController = new ScoreController();
     scoreController.afficherDetailsScore(); */ 
