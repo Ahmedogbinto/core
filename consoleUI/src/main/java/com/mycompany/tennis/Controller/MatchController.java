@@ -20,10 +20,17 @@ public class MatchController {
         this.matchService = new MatchService();
     }
     
+    public void tapisVert(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Quel est l'dentifiant du match dont vous voudriez annulez le score");
+        long identifiant = scanner.nextLong();
+        matchService.tapisVert(identifiant);
+    }
+    
     public void afficherDetailsMatch(){
-        Scanner sc=new Scanner(System.in);
+        Scanner scanner=new Scanner(System.in);
         System.out.println("Quel est l'identifiant du matct dont vous voulez affichez les informations");
-        long identifiant=sc.nextLong();   
+        long identifiant=scanner.nextLong();   
         MatchDto matchDto =matchService.getMatch(identifiant);
           System.out.println("Il s'agit d'un match de "+matchDto.getEpreuve().getAnnee()+" qui s'est déroulé à "+matchDto.getEpreuve().getTournoi().getNom());
           System.out.println("Le nom et le prenom du vainqueur est "+matchDto.getVainqueur().getPrenom()+" "+matchDto.getVainqueur().getNom());

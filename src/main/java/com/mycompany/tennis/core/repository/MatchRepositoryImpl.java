@@ -70,10 +70,10 @@ public class MatchRepositoryImpl {
   public Match getById(Long id){
         Session session = null;
         Match match = null;
-             session=HibernateUtil.getSessionFactory().openSession();
+              session = HibernateUtil.getSessionFactory().getCurrentSession();
              match=session.get(Match.class,id);
              
-             System.out.println("le Match à afficher est:");
+             System.out.println("le Match a été bien affiché");
         
         return match;
         

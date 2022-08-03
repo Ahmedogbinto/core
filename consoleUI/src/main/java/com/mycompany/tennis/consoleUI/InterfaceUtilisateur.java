@@ -40,7 +40,7 @@ public class InterfaceUtilisateur {
  //---------------------------------------------------------------------------------------------------------
    
     MatchController matchController = new MatchController();
-    matchController.afficherDetailsMatch();  
+    matchController.afficherDetailsMatch();
 //---------------------------------------------------------------------------------------------------------
     /* ScoreController scoreController = new ScoreController();
     scoreController.afficherDetailsScore(); */ 

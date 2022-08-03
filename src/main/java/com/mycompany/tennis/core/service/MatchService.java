@@ -10,9 +10,12 @@ import com.mycompany.tennis.core.Dto.JoueurDto;
 import com.mycompany.tennis.core.Dto.MatchDto;
 import com.mycompany.tennis.core.Dto.ScoreFullDto;
 import com.mycompany.tennis.core.Dto.TournoiDto;
+import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.entity.Match;
 import com.mycompany.tennis.core.repository.MatchRepositoryImpl;
 import com.mycompany.tennis.core.repository.ScoreRepositoryImpl;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
@@ -40,6 +43,7 @@ public class MatchService {
         scoreRepository.createScore(match.getScore());                             // Ensuite scorerepository qui dispose d<une clee vers le match pour connaitre le score du match
         
     }
+    
     
      public MatchDto getMatch(Long id){
         Session session = null;
@@ -108,6 +112,41 @@ public class MatchService {
                 }
          }
         return matchDto; 
-       
     }
+     
+     public void tapisVert(Long id){
+        Session session = null;
+        Transaction tx = null;
+        Match match = null;
+        
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          match = matchRepository.getById(id);
+          
+          Joueur ancienVainqueur = match.getVainqueur();               // modification des places du finaliste et du vainqueur
+          match.setVainqueur(match.getFinaliste());
+          match.setFinaliste(ancienVainqueur);
+          
+          match.getScore().setSet1((byte)0);
+          match.getScore().setSet2((byte)0);
+          match.getScore().setSet3((byte)0);
+          match.getScore().setSet4((byte)0);
+          match.getScore().setSet5((byte)0);
+          
+             tx.commit();
+             }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+         }    
+     }
+             
 }
