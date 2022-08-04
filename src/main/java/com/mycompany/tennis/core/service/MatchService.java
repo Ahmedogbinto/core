@@ -12,10 +12,11 @@ import com.mycompany.tennis.core.Dto.ScoreFullDto;
 import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.entity.Match;
+import com.mycompany.tennis.core.entity.Score;
+import com.mycompany.tennis.core.repository.EpreuveRepositoryImpl;
+import com.mycompany.tennis.core.repository.JoueurRepositoryImpl;
 import com.mycompany.tennis.core.repository.MatchRepositoryImpl;
 import com.mycompany.tennis.core.repository.ScoreRepositoryImpl;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
@@ -27,21 +28,68 @@ import ressourceUtil.HibernateUtil;
 public class MatchService {
     // cette classe service va béneficier de deux Repository MatchRepo et ScoreRepo 
     
-    private MatchRepositoryImpl matchRepository=new MatchRepositoryImpl();
-    private ScoreRepositoryImpl scoreRepository=new ScoreRepositoryImpl();
+    private MatchRepositoryImpl matchRepository = new MatchRepositoryImpl();
+    private ScoreRepositoryImpl scoreRepository = new ScoreRepositoryImpl();
+    private EpreuveRepositoryImpl epreuveRepository = new EpreuveRepositoryImpl();
+    private JoueurRepositoryImpl joueurRepository = new JoueurRepositoryImpl();
     
 
-    public MatchService(){ 
-        this.scoreRepository=new ScoreRepositoryImpl();
-        this.matchRepository=new MatchRepositoryImpl();
+    public MatchService(){                                          // instanciation des repository
+        this.scoreRepository = new ScoreRepositoryImpl();
+        this.matchRepository = new MatchRepositoryImpl();
+        this.epreuveRepository = new EpreuveRepositoryImpl();
+        this.joueurRepository = new JoueurRepositoryImpl();
 
     }
     
      
     public void enregistrerNouveauMatch(Match match){
-        matchRepository.createMatch(match);                                         // creer un enregistrement dans la table match pour recuperer son id
-        scoreRepository.createScore(match.getScore());                             // Ensuite scorerepository qui dispose d<une clee vers le match pour connaitre le score du match
+        matchRepository.create(match);                                         // creer un enregistrement dans la table match pour recuperer son id
+        scoreRepository.createScore(match.getScore());                             // Ensuite scorerepository qui dispose d<une clee vers le match pour connaitre le score du match  
+    }
+    
+    public void createMatch(MatchDto matchDto){
+        Session session = null;
+        Transaction tx = null;
+        Match match = null;
         
+     
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession();                    // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          
+          match = new Match();
+         
+          match.setEpreuve(epreuveRepository.getById(matchDto.getEpreuve().getId()));         // Definition de l'epreuve associé au match
+          match.setVainqueur(joueurRepository.getById(matchDto.getVainqueur().getId()));
+          match.setFinaliste(joueurRepository.getById(matchDto.getFinaliste().getId()));
+          
+          Score score = new Score();
+          score.setMatch(match);
+          match.setScore(score);
+          score.setSet1(matchDto.getScore().getSet1());                                      // Score a utiliser pour le match a ceer
+          score.setSet2(matchDto.getScore().getSet2());
+          score.setSet3(matchDto.getScore().getSet3());
+          score.setSet4(matchDto.getScore().getSet4());
+          score.setSet5(matchDto.getScore().getSet5());
+          
+          matchRepository.create(match);
+        
+          
+          tx.commit();
+  
+         }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+         }
     }
     
     

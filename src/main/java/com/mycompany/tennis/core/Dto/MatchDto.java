@@ -9,7 +9,7 @@ package com.mycompany.tennis.core.Dto;
  *
  * @author User
  */
-public class MatchDto {
+public class MatchDto{
     private long id;
     private JoueurDto vainqueur;    
     private JoueurDto finaliste;
