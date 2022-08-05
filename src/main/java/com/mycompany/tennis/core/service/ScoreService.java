@@ -82,8 +82,32 @@ public class ScoreService {
                     session.close();
                 }
          }
-        return scoreDto; 
-        
+        return scoreDto;   
     }
-            
+     
+   
+    public void deleteScore(Long id){
+        Session session = null;
+        Transaction tx = null;
+        
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          scoreRepository.delete(id);
+          tx.commit();
+          
+          }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+         }
+    }
+    
 }

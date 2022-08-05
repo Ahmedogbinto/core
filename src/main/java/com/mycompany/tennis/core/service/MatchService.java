@@ -74,8 +74,6 @@ public class MatchService {
           score.setSet5(matchDto.getScore().getSet5());
           
           matchRepository.create(match);
-        
-          
           tx.commit();
   
          }
@@ -196,5 +194,29 @@ public class MatchService {
                 }
          }    
      }
-             
+     
+     public void deleteMatch(Long id){
+        Session session = null;
+        Transaction tx = null;
+        
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          matchRepository.delete(id);
+          tx.commit();
+          
+          }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+         }
+    }
+         
 }

@@ -38,7 +38,7 @@ public class Match {
     @OneToOne(fetch=FetchType.LAZY)               // Par defaut c'est le EAGER, mais quand on est pas sur vaut mieux utiliser le lazy loading
     @JoinColumn(name="ID_EPREUVE")
     private Epreuve epreuve;
-    @OneToOne(mappedBy="match", fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @OneToOne(mappedBy="match", fetch=FetchType.LAZY, cascade=CascadeType.PERSIST, orphanRemoval = true)
     private Score score;
     
 

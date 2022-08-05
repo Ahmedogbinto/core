@@ -101,7 +101,14 @@ public class ScoreRepositoryImpl {
     
         return score;
     }
-
+     
+    public void delete(Long id){
+      Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+      Score score=session.get(Score.class,id);
+      session.delete(score);
+      
+      System.out.println("Le score a bien ete supprime");
+    }
   
     
 }

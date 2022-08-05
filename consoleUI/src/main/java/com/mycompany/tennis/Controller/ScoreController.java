@@ -20,8 +20,7 @@ public class ScoreController {
         this.scoreService = new ScoreService();
     }
 
-   
-    
+ 
     public void afficherDetailsScore(){
         Scanner sc=new Scanner(System.in);
         System.out.println("Quel est l'identifiant du score dont vous voulez affichez les informations");
@@ -44,8 +43,14 @@ public class ScoreController {
  
         System.out.println("Il s'agit du tournoi "+scoreRecupere.getMatch().getEpreuve().getTournoi().getNom());
         System.out.println("L'epreuve s'etait déroulé en "+scoreRecupere.getMatch().getEpreuve().getAnnee());
-        System.out.println("Et il s'agissait d'une epreuve de type: "+scoreRecupere.getMatch().getEpreuve().getTypeEpreuve().charValue()=="H" ? "Homme" : "Femme");
-       
+        System.out.println("Et il s'agissait d'une epreuve de type: "+scoreRecupere.getMatch().getEpreuve().getTypeEpreuve().charValue()=="H" ? "Homme" : "Femme"); 
     }
     
+    
+    public void supprimerScore(){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Quel est l'identifiant du score que vous voudriez supprimer");
+        long identifiant=sc.nextLong();   
+        scoreService.deleteScore(identifiant);
+    }
 }
