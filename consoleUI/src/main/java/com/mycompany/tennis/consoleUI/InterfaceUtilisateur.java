@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.consoleUI;
 
+import com.mycompany.tennis.Controller.JoueurController;
 import com.mycompany.tennis.Controller.MatchController;
 import com.mycompany.tennis.Controller.ScoreController;
 
@@ -16,13 +17,15 @@ public class InterfaceUtilisateur {
     
     public static void main(String... args){
         
-      /*  JoueurController joueurController=new JoueurController(); */ 
+       JoueurController joueurController=new JoueurController(); 
         /* joueurController.afficherDetailsJoueur();                      // Lire un joueur en connaissanbt son id
         /* joueurController.creerJoueur(); */                            // Créer un joueur
         /*joueurController.renommeJoueur(); */                          
          
         /* joueurController.ChangerSexeJoueur(); */                           // Changer le sexe d'un joueur
         /*  joueurController.SupprimerJoueur();  */                           // Supprimer un joueur
+        
+        joueurController.afficherListeJoueurs();
 //------------------------------------------------------------------------------------------------------------------- 
           /* TournoiController tournoiController = new TournoiController();
             /*tournoiController.afficherDetailsTournoi(); */  
@@ -41,8 +44,8 @@ public class InterfaceUtilisateur {
     /* MatchController matchController = new MatchController();
     matchController.supprimerMatch(); */ 
 //---------------------------------------------------------------------------------------------------------
-     ScoreController scoreController = new ScoreController();
-    scoreController.supprimerScore();  
+      /* ScoreController scoreController = new ScoreController();
+    scoreController.supprimerScore();*/    
     }
     
     

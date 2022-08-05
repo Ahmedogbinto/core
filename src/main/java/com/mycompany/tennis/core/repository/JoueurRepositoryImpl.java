@@ -10,13 +10,11 @@ import com.mycompany.tennis.core.DataSourceProvider;
 import com.mycompany.tennis.core.entity.Joueur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -93,46 +91,15 @@ public class JoueurRepositoryImpl {
 
     //-----------------------------------------------------------------------------------------------------------------------
     public List<Joueur> lister() {
-        Connection conn = null;
-        List<Joueur> listDeJoueurs = new ArrayList();
-        try {
-            DataSource dataSource = DataSourceProvider.getSingleDataSourceInstance();
+       
 
-            conn = dataSource.getConnection();
-
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT ID, NOM, PRENOM, SEXE FROM JOUEUR");
-
-            ResultSet rs = preparedStatement.executeQuery(); // ici c'est un read(Une lecture, donc c'est executeQuery.
-            while (rs.next()) {
-                Joueur joueur = new Joueur();
-
-                joueur.setId(rs.getLong("ID"));
-                joueur.setNom(rs.getString("NOM"));
-                joueur.setPrenom(rs.getString("PRENOM"));
-                joueur.setSexe(rs.getString("SEXE").charAt(0));
-
-                listDeJoueurs.add(joueur);
-            }
-
-            System.out.println("La liste des joueurs est bien affiché(lus)");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try {
-                if (conn != null) {
-                    conn.rollback();
-                }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return listDeJoueurs; // return pourrait potentielement retourner null, dans le cas ou l'identifiant passé en parametre ne correspond a aucun joueur de la base données
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+        Query<Joueur> query = session.createQuery("select j from Joueur j", Joueur.class);
+       
+        List<Joueur> joueurs = query.getResultList();
+        
+        System.out.println("Les joueurs ont été lus et affichés");
+    
+        return joueurs;
     }
 }
