@@ -12,7 +12,9 @@ import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Epreuve;
 import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.repository.EpreuveRepositoryImpl;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -112,7 +114,46 @@ public class EpreuveService {
         
     }
     
-    
-    
+    public List<EpreuveFullDto> getListEpreuve(String codeTournoi){
+        Session session = null;
+        Transaction tx = null;
+        List<EpreuveFullDto> listDto = new ArrayList<>();
+        
+        try{
+          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+          tx=session.beginTransaction();
+          
+          List<Epreuve> epreuves = epreuveRepository.lister(codeTournoi);
+          for(Epreuve epreuve: epreuves){
+              final EpreuveFullDto epreuveDto = new EpreuveFullDto();
+              epreuveDto.setId(epreuve.getId());
+              epreuveDto.setAnnee(epreuve.getAnnee());
+              epreuveDto.setTypeEpreuve(epreuve.getTypeEpreuve());
+              TournoiDto tournoiDto = new TournoiDto();
+              tournoiDto.setId(epreuve.getTournoi().getId());
+              tournoiDto.setCode(epreuve.getTournoi().getCode());
+              tournoiDto.setNom(epreuve.getTournoi().getNom());
+              
+              epreuveDto.setTournoi(tournoiDto);
+              listDto.add(epreuveDto);    
+          }
+              tx.commit();
+              System.out.println("La liste des epreuves du tournoi choisi est: ");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+                if (tx != null) {
+                    tx.rollback();
+                }
+                e.printStackTrace();
+            }finally {
+                if (session != null) {
+                    session.close();
+                }
+           }
+        
+       return listDto;     
+    }
+   
     
 }

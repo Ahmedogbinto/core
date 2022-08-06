@@ -166,7 +166,7 @@ public class JoueurService {
                 }
          }
     }
-     public List<JoueurDto> getListeJoueurs(){
+     public List<JoueurDto> getListeJoueurs(char sexe){
         Session session = null;
         Transaction tx = null;
         List<JoueurDto> joueursDto = new ArrayList<>();
@@ -175,7 +175,7 @@ public class JoueurService {
           session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
           tx=session.beginTransaction();
           
-          List<Joueur> joueurs = joueurRepository.lister();
+          List<Joueur> joueurs = joueurRepository.lister(sexe);
           for(Joueur joueur: joueurs){
               final JoueurDto joueurDto = new JoueurDto();
               joueurDto.setId(joueur.getId());

@@ -5,9 +5,8 @@
  */
 package com.mycompany.tennis.consoleUI;
 
+import com.mycompany.tennis.Controller.EpreuveController;
 import com.mycompany.tennis.Controller.JoueurController;
-import com.mycompany.tennis.Controller.MatchController;
-import com.mycompany.tennis.Controller.ScoreController;
 
 /**
  *
@@ -25,7 +24,7 @@ public class InterfaceUtilisateur {
         /* joueurController.ChangerSexeJoueur(); */                           // Changer le sexe d'un joueur
         /*  joueurController.SupprimerJoueur();  */                           // Supprimer un joueur
         
-        joueurController.afficherListeJoueurs();
+         /* joueurController.afficherListeJoueurs(); */
 //------------------------------------------------------------------------------------------------------------------- 
           /* TournoiController tournoiController = new TournoiController();
             /*tournoiController.afficherDetailsTournoi(); */  
@@ -36,9 +35,10 @@ public class InterfaceUtilisateur {
         /*scoreController.afficherDetailsScore();*/
  //------------------------------------------------------------------------------------------------------------
    
-      /* EpreuveController epreuveController = new EpreuveController(); 
-       epreuveController.afficherDetailsEpreuve(); 
-            epreuveController.afficherEpreuve();*/
+       EpreuveController epreuveController = new EpreuveController(); 
+      /* epreuveController.afficherDetailsEpreuve();*/ 
+            /*epreuveController.afficherEpreuve();*/
+            epreuveController.afficherListEpreuve();
  //---------------------------------------------------------------------------------------------------------
    
     /* MatchController matchController = new MatchController();

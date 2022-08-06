@@ -90,13 +90,14 @@ public class JoueurRepositoryImpl {
     }
 
     //-----------------------------------------------------------------------------------------------------------------------
-    public List<Joueur> lister() {
-       
+    public List<Joueur> lister(char sexe) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-        Query<Joueur> query = session.createQuery("select j from Joueur j", Joueur.class);
-       
+        Query<Joueur> query = session.createQuery("select j from Joueur j where j.sexe=?0", Joueur.class);
+        
+        query.setParameter(0, sexe);
         List<Joueur> joueurs = query.getResultList();
+        
         
         System.out.println("Les joueurs ont été lus et affichés");
     

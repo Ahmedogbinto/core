@@ -87,8 +87,11 @@ public class JoueurController {
     }
             
     public void afficherListeJoueurs(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("voulez-vous une liste homme(H) ou une liste femme (F) ?: ");
+        char sexe=scanner.nextLine().charAt(0);
         
-        for(JoueurDto joueurDto: joueurService.getListeJoueurs()){
+        for(JoueurDto joueurDto: joueurService.getListeJoueurs(sexe)){
             System.out.println(joueurDto.getPrenom()+" "+joueurDto.getNom());
         }
     }
