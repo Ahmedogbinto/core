@@ -33,7 +33,7 @@ public class EpreuveRepositoryImpl {
     
      public List<Epreuve> lister(String codeTournoi){
          Session session = HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-         Query<Epreuve> query = session.createQuery("select e from Epreuve e where e.tournoi.code=?0", Epreuve.class);  // pas besoin d'être explicite sur la requête puisque hibernate, Il connait la relation manyToOne qui existe entre Epreuve.  
+         Query<Epreuve> query = session.createQuery("select e from Epreuve e join fetch e.tournoi where e.tournoi.code=?0", Epreuve.class);  // pas besoin d'être explicite sur la requête puisque hibernate, Il connait la relation manyToOne qui existe entre Epreuve.  
         
         query.setParameter(0, codeTournoi);
         List<Epreuve> epreuves = query.getResultList();

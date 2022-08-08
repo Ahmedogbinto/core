@@ -11,11 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  *
  * @author User
  */
+@NamedQuery(query = "select j from Joueur j where j.sexe=?0", name = "given_sexe") // Pour recuperer un joueur par son sexe
+@NamedQuery(query = "select j from Joueur j where j.nom=?0", name = "given_nom") // Pour recuperer un joueur par son sexe
+
 
 @Entity
 public class Joueur {

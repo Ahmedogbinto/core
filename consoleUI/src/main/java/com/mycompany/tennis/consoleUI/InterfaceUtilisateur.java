@@ -24,7 +24,7 @@ public class InterfaceUtilisateur {
         /* joueurController.ChangerSexeJoueur(); */                           // Changer le sexe d'un joueur
         /*  joueurController.SupprimerJoueur();  */                           // Supprimer un joueur
         
-         /* joueurController.afficherListeJoueurs(); */
+       joueurController.afficherListeJoueurs(); 
 //------------------------------------------------------------------------------------------------------------------- 
           /* TournoiController tournoiController = new TournoiController();
             /*tournoiController.afficherDetailsTournoi(); */  
@@ -35,10 +35,10 @@ public class InterfaceUtilisateur {
         /*scoreController.afficherDetailsScore();*/
  //------------------------------------------------------------------------------------------------------------
    
-       EpreuveController epreuveController = new EpreuveController(); 
+       /*EpreuveController epreuveController = new EpreuveController(); 
       /* epreuveController.afficherDetailsEpreuve();*/ 
             /*epreuveController.afficherEpreuve();*/
-            epreuveController.afficherListEpreuve();
+           /* epreuveController.afficherListEpreuve();*/
  //---------------------------------------------------------------------------------------------------------
    
     /* MatchController matchController = new MatchController();

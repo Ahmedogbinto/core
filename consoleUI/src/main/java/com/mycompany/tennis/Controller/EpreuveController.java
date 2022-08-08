@@ -49,7 +49,7 @@ public class EpreuveController {
      
      public void afficherListEpreuve(){
          Scanner scanner = new Scanner(System.in);
-         System.out.println("Quesl est le code du tournoi dont vous voudriez les epreuves ");
+         System.out.println("Quel est le code du tournoi dont vous voudriez les epreuves ");
          String codeTournoi = scanner.nextLine();
          System.out.println("");
          for(EpreuveFullDto epreuveDto: epreuveService.getListEpreuve(codeTournoi)){

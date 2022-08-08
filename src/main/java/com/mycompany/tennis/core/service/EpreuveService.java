@@ -15,7 +15,6 @@ import com.mycompany.tennis.core.repository.EpreuveRepositoryImpl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
