@@ -13,10 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ressourceUtil.EntityManagerHolder;
 import ressourceUtil.HibernateUtil;
 
 /**
@@ -25,7 +26,6 @@ import ressourceUtil.HibernateUtil;
  */
 // Creation du Repository Tournoi avec les operation CRUD
 public class TournoiRepositoryImpl {
-    
     public void createTournoi(Tournoi tournoi){
             Session session = null;
             Transaction tx = null;
@@ -41,10 +41,11 @@ public class TournoiRepositoryImpl {
     } 
     
     public Tournoi getById(Long id){
-        Session session = null;
-        Tournoi tournoi = null;
-             session=HibernateUtil.getSessionFactory().openSession();
-             tournoi=session.get(Tournoi.class,id);
+        //Session session = null;
+        
+        EntityManager em = EntityManagerHolder.getCurrentEntityManager();
+             //session=HibernateUtil.getSessionFactory().openSession();
+             Tournoi tournoi=em.find(Tournoi.class,id);
              
              System.out.println("le tournoi à afficher est:");
         

@@ -10,6 +10,8 @@ import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.repository.JoueurRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ressourceUtil.HibernateUtil;
@@ -31,6 +33,9 @@ public class JoueurService {
         Transaction tx = null;
         
         try {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tennis-unit");
+            
+            
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             tx = session.beginTransaction();
             joueurRepository.createJoueur(joueur);

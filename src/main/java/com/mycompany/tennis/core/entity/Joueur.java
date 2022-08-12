@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.core.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 
@@ -22,7 +23,7 @@ import org.hibernate.annotations.NamedQuery;
 
 
 @Entity
-public class Joueur {
+public class Joueur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

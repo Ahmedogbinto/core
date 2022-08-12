@@ -8,8 +8,14 @@ package com.mycompany.tennis.core.service;
 import com.mycompany.tennis.core.Dto.TournoiDto;
 import com.mycompany.tennis.core.entity.Tournoi;
 import com.mycompany.tennis.core.repository.TournoiRepositoryImpl;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ressourceUtil.EntityManagerHolder;
+
 import ressourceUtil.HibernateUtil;
 
 /**
@@ -57,14 +63,18 @@ public class TournoiService {
     }
     
     public TournoiDto getTournoi(Long id){
-        Session session = null;
-        Transaction tx = null;
+        //Session session = null;
+        EntityManager em =null;
+        EntityTransaction tx = null;
         Tournoi tournoi = null;
         TournoiDto tournoiDto = null;
         
         try{
-          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-          tx=session.beginTransaction();
+            //session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update.
+         
+            em = EntityManagerHolder.getCurrentEntityManager();
+          tx=em.getTransaction();
+          tx.begin();
           tournoi = tournoiRepository.getById(id);
           
           tournoiDto = new TournoiDto();
@@ -83,8 +93,8 @@ public class TournoiService {
                 }
                 e.printStackTrace();
             }finally {
-                if (session != null) {
-                    session.close();
+                if (em != null) {
+                    em.close();
                 }
          }
         return tournoiDto; 

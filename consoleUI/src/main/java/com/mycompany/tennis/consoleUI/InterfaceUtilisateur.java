@@ -7,6 +7,7 @@ package com.mycompany.tennis.consoleUI;
 
 import com.mycompany.tennis.Controller.EpreuveController;
 import com.mycompany.tennis.Controller.JoueurController;
+import com.mycompany.tennis.Controller.TournoiController;
 
 /**
  *
@@ -24,10 +25,10 @@ public class InterfaceUtilisateur {
         /* joueurController.ChangerSexeJoueur(); */                           // Changer le sexe d'un joueur
         /*  joueurController.SupprimerJoueur();  */                           // Supprimer un joueur
         
-       joueurController.afficherListeJoueurs(); 
+          /*joueurController.afficherListeJoueurs(); */ 
 //------------------------------------------------------------------------------------------------------------------- 
-          /* TournoiController tournoiController = new TournoiController();
-            /*tournoiController.afficherDetailsTournoi(); */  
+          TournoiController tournoiController = new TournoiController();
+           tournoiController.afficherDetailsTournoi(); 
             /*tournoiController.creerTournoi();*/ 
            /*tournoiController.supprimerTournoi();*/
 //----------------------------------------------------------------------------------------------------------     

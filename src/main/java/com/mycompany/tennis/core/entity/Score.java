@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.core.entity;
 
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="score_vainqueur")
-public class Score {  
+public class Score implements Serializable {  
 
     
     @Id

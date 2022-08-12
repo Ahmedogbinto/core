@@ -5,6 +5,7 @@
  */
 package com.mycompany.tennis.core.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import javax.persistence.Transient;
  * @author User
  */
 @Entity
-public class Epreuve {
+public class Epreuve implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
