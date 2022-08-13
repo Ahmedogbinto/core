@@ -17,7 +17,7 @@ public class InterfaceUtilisateur {
     
     public static void main(String... args){
         
-       JoueurController joueurController=new JoueurController(); 
+       /*JoueurController joueurController=new JoueurController();*/ 
         /* joueurController.afficherDetailsJoueur();                      // Lire un joueur en connaissanbt son id
         /* joueurController.creerJoueur(); */                            // Créer un joueur
         /*joueurController.renommeJoueur(); */                          
@@ -28,8 +28,8 @@ public class InterfaceUtilisateur {
           /*joueurController.afficherListeJoueurs(); */ 
 //------------------------------------------------------------------------------------------------------------------- 
           TournoiController tournoiController = new TournoiController();
-           tournoiController.afficherDetailsTournoi(); 
-            /*tournoiController.creerTournoi();*/ 
+           /* tournoiController.afficherDetailsTournoi(); */
+            tournoiController.creerUnTournoi(); 
            /*tournoiController.supprimerTournoi();*/
 //----------------------------------------------------------------------------------------------------------     
         /*ScoreController scoreController = new ScoreController();*/

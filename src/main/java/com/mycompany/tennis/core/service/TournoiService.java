@@ -30,20 +30,22 @@ public class TournoiService {
         this.tournoiRepository=new TournoiRepositoryImpl();
     }
     
-    public void create(TournoiDto dto){
-         Session session = null;
-         Transaction tx = null;
+    public void createTournoi(TournoiDto dto){
+            EntityManager em =null;
+            EntityTransaction tx = null;
    
         try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            tx = session.beginTransaction();
+          
+            em = EntityManagerHolder.getCurrentEntityManager();
+            tx = em.getTransaction();
+            tx.begin();
             
             Tournoi tournoi = new Tournoi();                                // debut de conversion de l'entité tournoi en dto
             tournoi.setId(dto.getId());                                     // les propriétés du dto vers celles de l'entitées
             tournoi.setCode(dto.getCode());
             tournoi.setNom(dto.getNom());
             
-            tournoiRepository.createTournoi(dto);
+            tournoiRepository.create(tournoi);
             tx.commit();
 
             System.out.println("Un nouveau tournoi a bien été créé");
@@ -56,8 +58,8 @@ public class TournoiService {
             e.printStackTrace();
         } finally {
 
-            if (session != null) {
-                session.close();
+            if (em != null) {
+                em.close();
             }
         }
     }

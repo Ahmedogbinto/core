@@ -26,18 +26,13 @@ import ressourceUtil.HibernateUtil;
  */
 // Creation du Repository Tournoi avec les operation CRUD
 public class TournoiRepositoryImpl {
-    public void createTournoi(Tournoi tournoi){
-            Session session = null;
-            Transaction tx = null;
-        
-           session=HibernateUtil.getSessionFactory().openSession();
-           tx=session.beginTransaction();
-           session.persist(tournoi);
-           tx.commit();
-             
-             System.out.println("Un nouveau tournoi a bien été créé et ajouté");
-            
-         
+    public void create(Tournoi tournoi){
+ 
+          EntityManager em = EntityManagerHolder.getCurrentEntityManager();
+           em.persist(tournoi);
+   
+             System.out.println("Un nouveau tournoi a été créé");
+    
     } 
     
     public Tournoi getById(Long id){

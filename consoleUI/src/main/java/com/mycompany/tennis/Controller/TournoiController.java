@@ -30,7 +30,7 @@ public class TournoiController {
         System.out.println("Le Tounoi  que vous aviez sélectionné s'appelle: "+tournoiRecupere.getId()+" "+tournoiRecupere.getNom()+" "+tournoiRecupere.getCode());
     }
      
-  public void creerTournoi(){
+  public void creerUnTournoi(){
         TournoiDto tournoiCree = new TournoiDto();
         
         Scanner sc = new Scanner(System.in);
@@ -42,7 +42,7 @@ public class TournoiController {
          tournoiCree.setNom(nom);
          tournoiCree.setCode(code);
          
-         tournoiService.create(tournoiCree);
+         tournoiService.createTournoi(tournoiCree);
          System.out.println("Le tournoi a été créé et ajouter dans la base de données");
 }
   
