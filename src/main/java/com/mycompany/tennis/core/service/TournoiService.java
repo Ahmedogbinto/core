@@ -74,7 +74,7 @@ public class TournoiService {
         try{
             //session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update.
          
-            em = EntityManagerHolder.getCurrentEntityManager();
+          em = EntityManagerHolder.getCurrentEntityManager();
           tx=em.getTransaction();
           tx.begin();
           tournoi = tournoiRepository.getById(id);
@@ -99,17 +99,17 @@ public class TournoiService {
                     em.close();
                 }
          }
-        return tournoiDto; 
-       
+        return tournoiDto;   
     }
     
     public void delete(long id){
-        Session session = null;
-        Transaction tx = null;
+        EntityManager em =null;
+        EntityTransaction tx = null;
         
         try{
-          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-          tx=session.beginTransaction();
+          em = EntityManagerHolder.getCurrentEntityManager();
+          tx=em.getTransaction();
+          tx.begin();
           
          tournoiRepository.deleteTournoi(id);
           tx.commit();
@@ -123,8 +123,8 @@ public class TournoiService {
                 }
                 e.printStackTrace();
             }finally {
-                if (session != null) {
-                    session.close();
+                if (em != null) {
+                    em.close();
                 }
          }
     }

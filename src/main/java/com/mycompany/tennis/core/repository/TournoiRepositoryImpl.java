@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import ressourceUtil.EntityManagerHolder;
-import ressourceUtil.HibernateUtil;
 
 /**
  *
@@ -87,10 +84,10 @@ public class TournoiRepositoryImpl {
     
     
     public void deleteTournoi(Long id){
-        Tournoi tournoi = getById(id);
-    
-    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    session.delete(tournoi);
+         EntityManager em = EntityManagerHolder.getCurrentEntityManager();
+         Tournoi tournoi=em.find(Tournoi.class,id);
+         
+         em.remove(tournoi);
     
     }
     

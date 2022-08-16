@@ -15,8 +15,11 @@ import com.mycompany.tennis.core.repository.EpreuveRepositoryImpl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ressourceUtil.EntityManagerHolder;
 import ressourceUtil.HibernateUtil;
 
 /**
@@ -114,13 +117,14 @@ public class EpreuveService {
     }
     
     public List<EpreuveFullDto> getListEpreuve(String codeTournoi){
-        Session session = null;
-        Transaction tx = null;
+        EntityManager em =null;
+        EntityTransaction tx = null;
         List<EpreuveFullDto> listDto = new ArrayList<>();
         
         try{
-          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-          tx=session.beginTransaction();
+          em = EntityManagerHolder.getCurrentEntityManager();
+          tx=em.getTransaction();
+          tx.begin();
           
           List<Epreuve> epreuves = epreuveRepository.lister(codeTournoi);
           for(Epreuve epreuve: epreuves){
@@ -146,8 +150,8 @@ public class EpreuveService {
                 }
                 e.printStackTrace();
             }finally {
-                if (session != null) {
-                    session.close();
+                if (em != null) {
+                    em.close();
                 }
            }
         

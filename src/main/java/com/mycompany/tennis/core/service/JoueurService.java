@@ -10,10 +10,13 @@ import com.mycompany.tennis.core.entity.Joueur;
 import com.mycompany.tennis.core.repository.JoueurRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ressourceUtil.EntityManagerHolder;
 import ressourceUtil.HibernateUtil;
 
 
@@ -172,13 +175,14 @@ public class JoueurService {
          }
     }
      public List<JoueurDto> getListeJoueurs(char sexe){
-        Session session = null;
-        Transaction tx = null;
+        EntityManager em =null;
+        EntityTransaction tx = null;
         List<JoueurDto> joueursDto = new ArrayList<>();
         
         try{
-          session=HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-          tx=session.beginTransaction();
+          em = EntityManagerHolder.getCurrentEntityManager();
+          tx=em.getTransaction();
+          tx.begin();
           
           List<Joueur> joueurs = joueurRepository.lister(sexe);
           for(Joueur joueur: joueurs){
@@ -202,8 +206,8 @@ public class JoueurService {
                 }
                 e.printStackTrace();
             }finally {
-                if (session != null) {
-                    session.close();
+                if (em != null) {
+                    em.close();
                 }
            }
         

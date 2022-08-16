@@ -12,9 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.sql.DataSource;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import ressourceUtil.EntityManagerHolder;
 
 /**
  *
@@ -92,8 +94,8 @@ public class JoueurRepositoryImpl {
     //-----------------------------------------------------------------------------------------------------------------------
     public List<Joueur> lister(char sexe) {
 
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
-        Query<Joueur> query = session.createNamedQuery("given_sexe", Joueur.class);
+       EntityManager em = EntityManagerHolder.getCurrentEntityManager(); // C'est grace à cette objet cession que l'on pourra faire du Read, create, delete, update. 
+        TypedQuery<Joueur> query = em.createNamedQuery("given_sexe", Joueur.class);
         
         query.setParameter(0, sexe);
         List<Joueur> joueurs = query.getResultList();
