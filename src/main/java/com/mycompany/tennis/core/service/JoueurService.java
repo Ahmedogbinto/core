@@ -186,6 +186,7 @@ public class JoueurService {
           tx.begin();
           
           List<Joueur> joueurs = joueurRepository.lister(sexe);
+          
           for(Joueur joueur: joueurs){
               final JoueurDto joueurDto = new JoueurDto();
               joueurDto.setId(joueur.getId());

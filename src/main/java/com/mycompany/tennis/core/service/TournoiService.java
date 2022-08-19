@@ -12,11 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import ressourceUtil.EntityManagerHolder;
 
-import ressourceUtil.HibernateUtil;
 
 /**
  *
