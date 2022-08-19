@@ -174,11 +174,12 @@ public class JoueurService {
                 }
          }
     }
+    
      public List<JoueurDto> getListeJoueurs(char sexe){
         EntityManager em =null;
         EntityTransaction tx = null;
         List<JoueurDto> joueursDto = new ArrayList<>();
-        
+      
         try{
           em = EntityManagerHolder.getCurrentEntityManager();
           tx=em.getTransaction();
@@ -205,7 +206,8 @@ public class JoueurService {
                     tx.rollback();
                 }
                 e.printStackTrace();
-            }finally {
+            }
+        finally {
                 if (em != null) {
                     em.close();
                 }

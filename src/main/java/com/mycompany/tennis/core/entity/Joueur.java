@@ -20,11 +20,11 @@ import javax.persistence.NamedQuery;
  * @author User
  */
 @NamedQuery(query = "select j from Joueur j where j.sexe=?0", name = "given_sexe") // Pour recuperer un joueur par son sexe
-@NamedQuery(query = "select j from Joueur j where j.nom=?0", name = "given_nom") // Pour recuperer un joueur par son sexe
+@NamedQuery(query = "select j from Joueur j where j.nom=?0", name = "given_nom") // Pour recuperer un joueur par son nom
 
 
 @Entity
-public class Joueur implements Serializable {
+public class Joueur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,21 +33,7 @@ public class Joueur implements Serializable {
     private Character sexe;
 
     
-    @Override
-    public boolean equals(Object o){
-        if(this == o) return true;
-        if(!(o instanceof Joueur)) return false;
-        Joueur joueur = (Joueur) o;
-        return Objects.equals(id, joueur.id)&&
-                Objects.equals(nom, joueur.nom)&&
-                Objects.equals(prenom, joueur.prenom)&&
-                Objects.equals(sexe, joueur.sexe);
-    }
-    @Override
-    public int hashCode(){
-        return Objects.hash(id, nom, prenom, sexe);
-    }
-    
+   
     
     public Long getId() {
         return id;
