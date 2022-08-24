@@ -1,3 +1,6 @@
 /Console-ui/target/
 /consoleUI/target/
 /webui/target/
+.idea/workspace.xml
+.idea/misc.xml
+*.xml
